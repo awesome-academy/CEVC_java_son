@@ -12,23 +12,27 @@ import org.springframework.stereotype.Component;
 @Profile("dev")
 public class LoggingAspect {
 
-    private static final Logger logger = LoggerFactory.getLogger(LoggingAspect.class);
+  private static final Logger logger = LoggerFactory.getLogger(LoggingAspect.class);
 
-    @Pointcut("execution(* com.example.demo.controller.*.*(..)) || execution(* com.example.demo.service.*.*(..))")
-    public void applicationPackagePointcut() {}
+  @Pointcut(
+      "execution(* com.example.demo.controller.*.*(..)) || execution(* com.example.demo.service.*.*(..))")
+  public void applicationPackagePointcut() {}
 
-    @Before("applicationPackagePointcut()")
-    public void logBefore(JoinPoint joinPoint) {
-        logger.info("Before method: {}", joinPoint.getSignature().toShortString());
-    }
+  @Before("applicationPackagePointcut()")
+  public void logBefore(JoinPoint joinPoint) {
+    logger.info("Before method: {}", joinPoint.getSignature().toShortString());
+  }
 
-    @AfterReturning(pointcut = "applicationPackagePointcut()", returning = "result")
-    public void logAfter(JoinPoint joinPoint, Object result) {
-        logger.info("After method: {} - Return: {}", joinPoint.getSignature().toShortString(), result);
-    }
+  @AfterReturning(pointcut = "applicationPackagePointcut()", returning = "result")
+  public void logAfter(JoinPoint joinPoint, Object result) {
+    logger.info("After method: {} - Return: {}", joinPoint.getSignature().toShortString(), result);
+  }
 
-    @AfterThrowing(pointcut = "applicationPackagePointcut()", throwing = "error")
-    public void logAfterThrowing(JoinPoint joinPoint, Throwable error) {
-        logger.error("Exception in {} - Message: {}", joinPoint.getSignature().toShortString(), error.getMessage());
-    }
+  @AfterThrowing(pointcut = "applicationPackagePointcut()", throwing = "error")
+  public void logAfterThrowing(JoinPoint joinPoint, Throwable error) {
+    logger.error(
+        "Exception in {} - Message: {}",
+        joinPoint.getSignature().toShortString(),
+        error.getMessage());
+  }
 }

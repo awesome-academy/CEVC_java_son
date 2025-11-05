@@ -1,45 +1,69 @@
 package com.example.expense.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+import java.time.LocalDateTime;
+import java.util.List;
+import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
 @Table(name = "users")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@EntityListeners(AuditingEntityListener.class)
 public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
-    @Column(nullable = false, unique = true)
-    private String email;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @Column(nullable = false)
-    private String passwordHash;
+  @NotBlank
+  @Size(max = 36)
+  @Column(nullable = false, unique = true, length = 36)
+  private String uuid;
 
-    @Column(nullable = false)
-    private String fullName;
+  @Size(max = 100)
+  @Column(length = 100)
+  private String name;
 
-    private String role; // ví dụ: "USER" hoặc "ADMIN"
+  @Email
+  @Size(max = 150)
+  @Column(unique = true, length = 150)
+  private String email;
 
-    public User() {}
+  @NotBlank
+  @Column(name = "password_hash")
+  private String passwordHash;
 
-    public User(String email, String passwordHash, String fullName, String role) {
-        this.email = email;
-        this.passwordHash = passwordHash;
-        this.fullName = fullName;
-        this.role = role;
-    }
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "role_id")
+  private Role role;
 
-    public Long getId() { return id; }
+  @Column(name = "is_active")
+  private Boolean isActive = true;
 
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
+  @CreatedDate
+  @Column(name = "created_at", nullable = false, updatable = false)
+  private LocalDateTime createdAt;
 
-    public String getPasswordHash() { return passwordHash; }
-    public void setPasswordHash(String passwordHash) { this.passwordHash = passwordHash; }
+  @LastModifiedDate
+  @Column(name = "updated_at")
+  private LocalDateTime updatedAt;
 
-    public String getFullName() { return fullName; }
-    public void setFullName(String fullName) { this.fullName = fullName; }
+  @JsonManagedReference
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<Expense> expenses;
 
-    public String getRole() { return role; }
-    public void setRole(String role) { this.role = role; }
+  @JsonManagedReference
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<Income> incomes;
 }
