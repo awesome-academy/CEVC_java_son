@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.example.expense.ExpenseApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.895 s -- in com.example.expense.ExpenseApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.543 s -- in com.example.expense.ExpenseApplicationTests

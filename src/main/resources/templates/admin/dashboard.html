@@ -1,0 +1,47 @@
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <title>Dashboard</title>
+</head>
+
+<body layout:decorate="~{admin/layout/base}">
+<div layout:fragment="content">
+
+  <section class="content-header">
+    <div class="container-fluid">
+      <h1>Dashboard</h1>
+    </div>
+  </section>
+
+  <section class="content">
+    <div class="container-fluid">
+
+      <div class="row">
+
+        <div class="col-lg-3 col-6">
+          <div class="small-box bg-info">
+            <div class="inner">
+              <h3>0</h3>
+              <p>Users</p>
+            </div>
+            <div class="icon"><i class="fas fa-users"></i></div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-6">
+          <div class="small-box bg-success">
+            <div class="inner">
+              <h3>0</h3>
+              <p>Expenses</p>
+            </div>
+            <div class="icon"><i class="fas fa-wallet"></i></div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+</div>
+</body>
+</html>
