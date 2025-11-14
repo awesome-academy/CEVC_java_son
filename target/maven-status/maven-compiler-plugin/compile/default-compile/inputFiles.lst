@@ -3,6 +3,7 @@
 /home/tran.thanh.son@sun-asterisk.com/Desktop/CEVC_java_son/src/main/java/com/example/expense/config/CustomUserDetailsService.java
 /home/tran.thanh.son@sun-asterisk.com/Desktop/CEVC_java_son/src/main/java/com/example/expense/config/DataInitializer.java
 /home/tran.thanh.son@sun-asterisk.com/Desktop/CEVC_java_son/src/main/java/com/example/expense/config/GlobalSecurityBeans.java
+/home/tran.thanh.son@sun-asterisk.com/Desktop/CEVC_java_son/src/main/java/com/example/expense/config/LocaleConfig.java
 /home/tran.thanh.son@sun-asterisk.com/Desktop/CEVC_java_son/src/main/java/com/example/expense/config/LoggingAspect.java
 /home/tran.thanh.son@sun-asterisk.com/Desktop/CEVC_java_son/src/main/java/com/example/expense/config/SecurityConfig.java
 /home/tran.thanh.son@sun-asterisk.com/Desktop/CEVC_java_son/src/main/java/com/example/expense/config/WebSecurityIgnoringConfig.java

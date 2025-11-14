@@ -1,36 +1,33 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title layout:title-pattern="$CONTENT_TITLE - Admin">Admin Dashboard</title>
-
-  <link rel="stylesheet" th:href="@{/adminlte/dist/css/adminlte.min.css}" />
-  <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title th:text="${title}">Admin Panel</title>
+  <link rel="stylesheet" th:href="@{/css/output.css}">
 </head>
+<body class="bg-gray-100 font-sans">
 
-<body class="hold-transition sidebar-mini layout-fixed">
-<div class="wrapper">
+<div class="flex min-h-screen">
 
-  <nav th:replace="admin/layout/header :: header"></nav>
+  <!-- Sidebar -->
+  <div th:replace="layout/sidebar :: sidebar"></div>
 
-  <aside th:replace="admin/layout/sidebar :: sidebar"></aside>
+  <div class="flex-1 flex flex-col">
 
-  <!-- VÙNG NỘI DUNG CHÍNH -->
-  <div class="content-wrapper">
-    <div layout:fragment="content">
-      <!-- default content -->
-    </div>
+    <!-- Header -->
+    <div th:replace="layout/header :: header"></div>
+
+    <!-- Main content -->
+    <main class="p-6 flex-1">
+      <div th:insert="~{::content}"></div>
+    </main>
+
+    <!-- Footer -->
+    <div th:replace="layout/footer :: footer"></div>
+
   </div>
-
-  <footer th:replace="admin/layout/footer :: footer"></footer>
-
 </div>
 
-<script th:src="@{/adminlte/dist/js/adminlte.min.js}"></script>
 </body>
 </html>

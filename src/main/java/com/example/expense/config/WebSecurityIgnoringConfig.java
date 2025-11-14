@@ -8,6 +8,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class WebSecurityIgnoringConfig {
   @Bean
   public WebSecurityCustomizer webSecurityCustomizer() {
-    return web -> web.ignoring().requestMatchers("/css/**", "/js/**", "/images/**", "/webjars/**");
+    return web ->
+        web.ignoring()
+            .requestMatchers("/adminlte/**", "/css/**", "/js/**", "/images/**", "/webjars/**");
   }
 }

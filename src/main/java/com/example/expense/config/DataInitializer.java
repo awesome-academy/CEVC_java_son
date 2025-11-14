@@ -46,7 +46,6 @@ public class DataInitializer implements CommandLineRunner {
               .role(adminRole)
               .isActive(true)
               .build());
-      System.out.println("Admin user created: admin@expense.com / Aa@123456");
     }
   }
 }

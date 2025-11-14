@@ -29,7 +29,11 @@ public class SecurityConfig {
                     .anyRequest()
                     .authenticated())
         .formLogin(
-            form -> form.loginPage("/login").defaultSuccessUrl("/user/dashboard", true).permitAll())
+            form ->
+                form.loginPage("/login")
+                    .loginProcessingUrl("/login")
+                    .defaultSuccessUrl("/user/dashboard", true)
+                    .permitAll())
         .logout(
             logout -> logout.logoutUrl("/logout").logoutSuccessUrl("/login?logout").permitAll());
 

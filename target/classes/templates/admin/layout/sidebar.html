@@ -1,34 +1,8 @@
-<th:block th:fragment="sidebar">
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <a th:href="@{/admin/dashboard}" class="brand-link text-center">
-      <span class="brand-text fw-bold">Expense Admin</span>
-    </a>
-
-    <div class="sidebar">
-      <nav class="mt-3">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-lte-toggle="treeview" role="menu">
-          <li class="nav-item">
-            <a th:href="@{/admin/dashboard}" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i><p>Dashboard</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a th:href="@{/admin/users}" class="nav-link">
-              <i class="nav-icon fas fa-users"></i><p>Users</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a th:href="@{/admin/categories}" class="nav-link">
-              <i class="nav-icon fas fa-list"></i><p>Categories</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a th:href="@{/admin/expenses}" class="nav-link">
-              <i class="nav-icon fas fa-wallet"></i><p>Expenses</p>
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </div>
-  </aside>
-</th:block>
+<aside th:fragment="sidebar" class="w-64 bg-gray-900 text-gray-200 flex-shrink-0 h-screen p-4">
+  <nav class="space-y-2">
+    <a th:href="@{/admin/dashboard}" class="block px-4 py-2 rounded hover:bg-gray-700 hover:text-white transition">Dashboard</a>
+    <a th:href="@{/admin/users}" class="block px-4 py-2 rounded hover:bg-gray-700 hover:text-white transition">Users</a>
+    <a th:href="@{/admin/orders}" class="block px-4 py-2 rounded hover:bg-gray-700 hover:text-white transition">Orders</a>
+    <a th:href="@{/admin/settings}" class="block px-4 py-2 rounded hover:bg-gray-700 hover:text-white transition">Settings</a>
+  </nav>
+</aside>

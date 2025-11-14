@@ -29,6 +29,9 @@ spring:
     suffix: .html
     mode: HTML
     cache: false
+  messages:
+    basename: lang/messages
+    encoding: UTF-8
 
 server:
   port: 8081
