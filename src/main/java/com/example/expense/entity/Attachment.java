@@ -46,7 +46,7 @@ public class Attachment {
   private String filePath;
 
   @Size(max = 50)
-  @Pattern(regexp = "^(jpg|png|pdf|docx)$", message = "File type không hợp lệ")
+  @Pattern(regexp = "^(jpg|png|pdf|docx)$", message = "error.invalid_file_type")
   @Column(name = "file_type", length = 50)
   private String fileType;
 

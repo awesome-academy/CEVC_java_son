@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title th:text="${title}">Admin Panel</title>
+  <link rel="stylesheet" th:href="@{/css/output.css}">
+</head>
+<body class="bg-gray-100 font-sans">
+
+<div class="flex min-h-screen">
+
+  <!-- Sidebar -->
+  <div th:replace="layout/sidebar :: sidebar"></div>
+
+  <div class="flex-1 flex flex-col">
+
+    <!-- Header -->
+    <div th:replace="layout/header :: header"></div>
+
+    <!-- Main content -->
+    <main class="p-6 flex-1">
+      <div th:insert="~{::content}"></div>
+    </main>
+
+    <!-- Footer -->
+    <div th:replace="layout/footer :: footer"></div>
+
+  </div>
+</div>
+
+</body>
+</html>

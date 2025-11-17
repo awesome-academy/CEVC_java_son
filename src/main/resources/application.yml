@@ -7,7 +7,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
@@ -29,6 +29,9 @@ spring:
     suffix: .html
     mode: HTML
     cache: false
+  messages:
+    basename: lang/messages
+    encoding: UTF-8
 
 server:
   port: 8081
