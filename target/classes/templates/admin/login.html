@@ -1,27 +1,74 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Login</title>
-  <link rel="stylesheet" th:href="@{/css/output.css}">
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <title>Admin LTE 3 | Log in</title>
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link rel="stylesheet" th:href="@{~/webjars/AdminLTE/3.2.0/plugins/fontawesome-free/css/all.min.css}"
+          type="text/css">
+    <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" th:href="@{~/webjars/AdminLTE/3.2.0/plugins/icheck-bootstrap/icheck-bootstrap.min.css}"
+          type="text/css">
+    <link rel="stylesheet" th:href="@{~/webjars/AdminLTE/3.2.0/dist/css/adminlte.min.css}" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet"
+          type="text/css">
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+<body class="hold-transition login-page">
+<div class="login-box">
+    <div class="login-logo">
+        <a href="../../index2.html"><b>Admin Panel</b></a>
+    </div>
+    <div class="card">
+        <div class="card-body login-card-body">
+            <p class="login-box-msg" th:if="${param.error}">
+                User/password is invalid.
+            </p>
+            <p class="login-box-msg" th:if="${param.logout}">
+                You have been logged out.
+            </p>
 
-  <div class="bg-white p-8 rounded-xl shadow-lg w-full max-w-md">
-    <h2 class="text-2xl font-bold mb-6 text-center">Admin Login</h2>
-    <form th:action="@{/admin/login}" method="post" class="space-y-4">
-      <div>
-        <label class="block mb-1 font-medium">Email</label>
-        <input type="text" name="username" class="w-full p-3 border rounded-md focus:ring" required>
-      </div>
-      <div>
-        <label class="block mb-1 font-medium">Password</label>
-        <input type="password" name="password" class="w-full p-3 border rounded-md focus:ring" required>
-      </div>
-      <button class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700">Login</button>
-    </form>
-  </div>
+            <p class="login-box-msg">Sign in to start your session</p>
+
+            <form method="post" th:action="@{/admin/login}">
+                <div class="input-group mb-3">
+                    <input class="form-control" name="username" placeholder="Username" type="text">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-envelope"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input class="form-control" name="password" placeholder="Password" type="password">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-8">
+                        <div class="icheck-primary">
+                            <input id="remember" type="checkbox">
+                            <label for="remember" th:text="#{login.remember_me}">
+                                
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <button class="btn btn-primary btn-block" type="submit" th:text="#{login.sign_in}"></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{~/webjars/AdminLTE/3.2.0/plugins/jquery/jquery.min.js}" type="text/javascript"></script>
+<script th:src="@{~/webjars/AdminLTE/3.2.0/plugins/bootstrap/js/bootstrap.bundle.min.js}"
+        type="text/javascript"></script>
+<script th:src="@{~/webjars/AdminLTE/3.2.0/dist/js/adminlte.min.js}" type="text/javascript"></script>
 
 </body>
 </html>
