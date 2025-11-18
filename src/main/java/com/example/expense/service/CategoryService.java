@@ -2,6 +2,7 @@ package com.example.expense.service;
 
 import com.example.expense.entity.Category;
 import com.example.expense.entity.User;
+import com.example.expense.exception.ResourceNotFoundException;
 import com.example.expense.repository.CategoryRepository;
 import com.example.expense.repository.UserRepository;
 import java.time.LocalDateTime;
@@ -49,12 +50,12 @@ public class CategoryService {
     User user =
         userRepository
             .findById(userId)
-            .orElseThrow(() -> new RuntimeException("error.model_not_found"));
+            .orElseThrow(() -> new ResourceNotFoundException("error.model_not_found"));
 
     Category existing =
         categoryRepository
             .findById(category.getId())
-            .orElseThrow(() -> new RuntimeException("error.model_not_found"));
+            .orElseThrow(() -> new ResourceNotFoundException("error.model_not_found"));
 
     existing.setName(category.getName());
     existing.setDescription(category.getDescription());

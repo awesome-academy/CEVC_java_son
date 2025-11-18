@@ -28,6 +28,34 @@
                     </a>
                 </li>
 
+                <!-- Users -->
+                <li class="nav-item" 
+                    th:classappend="${currentPath.startsWith('/admin/users')} ? ' menu-open'">
+                    <a href="#" 
+                    class="nav-link" 
+                    th:classappend="${currentPath.startsWith('/admin/users')} ? ' active'">
+                        <i class="nav-icon fas fa-copy"></i>
+                        <p>
+                            <span th:text="#{menu.users}"></span>
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item" th:classappend="${currentPath == '/admin/users'} ? ' active'">
+                            <a class="nav-link" th:href="@{/admin/users}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p th:text="#{user.list}"></p>
+                            </a>
+                        </li>
+                        <li class="nav-item" th:classappend="${currentPath == '/admin/users/add'} ? ' active'">
+                            <a class="nav-link" th:href="@{/admin/users/add}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p th:text="#{user.add_new}"></p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
                 <!-- Categories -->
                 <li class="nav-item" 
                     th:classappend="${currentPath.startsWith('/admin/categories')} ? ' menu-open'">

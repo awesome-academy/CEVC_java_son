@@ -36,6 +36,20 @@ public class DataInitializer implements CommandLineRunner {
                             .updatedAt(LocalDateTime.now())
                             .build()));
 
+    Role userRole =
+        roleRepository
+            .findByName(RoleType.USER)
+            .orElseGet(
+                () ->
+                    roleRepository.save(
+                        Role.builder()
+                            .uuid(UUID.randomUUID().toString())
+                            .name(RoleType.USER)
+                            .description("Regular user")
+                            .createdAt(LocalDateTime.now())
+                            .updatedAt(LocalDateTime.now())
+                            .build()));
+
     if (userRepository.findByEmail("admin@expense.com").isEmpty()) {
       userRepository.save(
           User.builder()
