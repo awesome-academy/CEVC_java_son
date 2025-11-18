@@ -22,6 +22,7 @@ com/example/expense/entity/Income.class
 com/example/expense/exception/GlobalExceptionHandler.class
 com/example/expense/repository/RoleRepository.class
 com/example/expense/controller/DashboardController.class
+com/example/expense/repository/CategoryRepository.class
 com/example/expense/entity/Expense.class
 com/example/expense/entity/Expense$ExpenseBuilder.class
 com/example/expense/service/UserService.class
@@ -34,9 +35,11 @@ com/example/expense/entity/Budget$BudgetBuilder.class
 com/example/expense/ExpenseApplication.class
 com/example/expense/enums/SourceEntity.class
 com/example/expense/config/AdminSecurityConfig.class
+com/example/expense/config/GlobalControllerAdvice.class
 com/example/expense/exception/ResourceNotFoundException.class
 com/example/expense/enums/GoalType.class
 com/example/expense/entity/Role.class
+com/example/expense/controller/admin/AdminCategoryController.class
 com/example/expense/entity/Attachment$AttachmentBuilder.class
 com/example/expense/controller/admin/AdminAuthController.class
 com/example/expense/entity/Category$CategoryBuilder.class
@@ -47,6 +50,7 @@ com/example/expense/enums/ImportExportTarget.class
 com/example/expense/entity/User.class
 com/example/expense/entity/BudgetTemplate$BudgetTemplateBuilder.class
 com/example/expense/entity/Notification.class
+com/example/expense/service/CategoryService.class
 com/example/expense/enums/NotificationSource.class
 com/example/expense/config/LocaleConfig.class
 com/example/expense/entity/Role$RoleBuilder.class

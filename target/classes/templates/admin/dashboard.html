@@ -1,50 +1,92 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout/base}">
-<section layout:fragment="content">
+<html layout:decorate="~{admin/shared/layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
 
-  <h2 class="text-2xl font-bold mb-6">Dashboard</h2>
+</head>
+<body>
 
-  <!-- Stats Cards -->
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-    <div class="bg-white p-6 rounded-xl shadow">
-      <h3 class="text-lg font-semibold">Users</h3>
-      <p class="text-3xl font-bold mt-2">1,240</p>
+<div layout:fragment="content">
+
+
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">Dashboard</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Dashboard v1</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="bg-white p-6 rounded-xl shadow">
-      <h3 class="text-lg font-semibold">Revenue</h3>
-      <p class="text-3xl font-bold mt-2">$12,430</p>
-    </div>
-    <div class="bg-white p-6 rounded-xl shadow">
-      <h3 class="text-lg font-semibold">Orders</h3>
-      <p class="text-3xl font-bold mt-2">320</p>
-    </div>
-  </div>
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-3 col-6">
+                    <div class="small-box bg-info">
+                        <div class="inner">
+                            <h3>150</h3>
 
-  <!-- Table -->
-  <div class="bg-white p-6 rounded-xl shadow">
-    <h3 class="text-xl font-semibold mb-4">Recent Activity</h3>
-    <table class="w-full text-left table-auto border-collapse">
-      <thead>
-        <tr class="border-b">
-          <th class="pb-2">User</th>
-          <th class="pb-2">Action</th>
-          <th class="pb-2">Time</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr class="border-b">
-          <td>John Doe</td>
-          <td>Logged in</td>
-          <td>2 hours ago</td>
-        </tr>
-        <tr class="border-b">
-          <td>Alice</td>
-          <td>Updated profile</td>
-          <td>5 hours ago</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+                            <p>New Orders</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-bag"></i>
+                        </div>
+                        <a class="small-box-footer" href="#">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-6">
+                    <div class="small-box bg-success">
+                        <div class="inner">
+                            <h3>53<sup style="font-size: 20px">%</sup></h3>
 
-</section>
+                            <p>Bounce Rate</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-stats-bars"></i>
+                        </div>
+                        <a class="small-box-footer" href="#">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-6">
+                    <div class="small-box bg-warning">
+                        <div class="inner">
+                            <h3>44</h3>
+
+                            <p>User Registrations</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-person-add"></i>
+                        </div>
+                        <a class="small-box-footer" href="#">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-6">
+                    <div class="small-box bg-danger">
+                        <div class="inner">
+                            <h3>65</h3>
+
+                            <p>Unique Visitors</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-pie-graph"></i>
+                        </div>
+                        <a class="small-box-footer" href="#">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+</body>
 </html>

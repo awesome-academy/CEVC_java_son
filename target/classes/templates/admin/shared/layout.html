@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.utraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">Expense Management</title>
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+
+    <style th:replace="~{/admin/shared/style}"></style>
+
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+
+<div class="wrapper">
+
+    <div th:replace="~{/admin/shared/header}"></div>
+
+    <div th:replace="~{/admin/shared/menu}"></div>
+
+    <div class="content-wrapper">
+        <div layout:fragment="content">
+
+
+        </div>
+    </div>
+
+
+    <div th:replace="~{/admin/shared/footer}"></div>
+
+    <div layout:fragment="script">
+
+    </div>
+
+    <div th:replace="~{/admin/shared/script}"></div>
+
+</div>
+
+
+</body>
+</html>
+
+
+
+
+
+

@@ -37,7 +37,8 @@ public class AdminSecurityConfig {
                 logout
                     .logoutUrl("/admin/logout")
                     .logoutSuccessUrl("/admin/login?logout")
-                    .permitAll());
+                    .permitAll())
+        .userDetailsService(userDetailsService);
 
     return http.build();
   }
