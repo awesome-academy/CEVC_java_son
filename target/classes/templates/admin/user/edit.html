@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html layout:decorate="~{admin/shared/layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{user.edit}"></title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 th:text="#{user.edit}"></h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#" th:text="#{menu.home}"></a></li>
+                        <li class="breadcrumb-item active" th:text="#{user.edit}"></li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title" th:text="#{user.edit}"></h3>
+                        </div>
+                        <form role="form" method="post" th:action="@{/admin/users/edit}" th:object="${user}">
+                            <input th:field="*{id}" type="hidden"/>
+                            <div class="card-body">
+
+                                <div class="form-group">
+                                    <label for="name" th:text="#{user.name}">Name</label>
+                                    <input class="form-control" id="name" placeholder="#{user.name_placeholder}"
+                                           type="text" th:field="*{name}" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="email" th:text="#{user.email}">Email</label>
+                                    <input class="form-control" id="email" placeholder="#{user.email_placeholder}"
+                                           type="email" th:field="*{email}" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="password" th:text="#{user.password}">Password</label>
+                                    <input class="form-control" id="password" placeholder="#{user.password_placeholder}"
+                                           type="password" th:field="*{password}">
+                                    <small class="form-text text-muted" th:text="#{user.password_edit_note}">Leave blank to keep current password</small>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="role" th:text="#{user.role}">Role</label>
+                                    <select class="form-control" id="role" name="roleId" required>
+                                        <option th:each="r : ${roles}" 
+                                                th:value="${r.id}" 
+                                                th:text="${r.name}"
+                                                th:selected="${r.id} == ${user.role.id}">
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" th:field="*{isActive}" id="isActive">
+                                    <label class="form-check-label" for="isActive" th:text="#{user.is_active}">Active</label>
+                                </div>
+
+                            </div>
+
+                            <div class="card-footer">
+                                <button class="btn btn-primary" type="submit" th:text="#{common.save}"></button>
+                                <a class="btn btn-secondary" th:href="@{/admin/users}" th:text="#{common.cancel}"></a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<th:block layout:fragment="script">
+    <script>
+        // Do something if needed
+    </script>
+</th:block>
+
+</body>
+</html>
