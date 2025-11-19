@@ -1,6 +1,7 @@
 package com.example.expense.controller.admin;
 
 import com.example.expense.config.CustomUserDetailsService;
+import com.example.expense.dto.UserForm;
 import com.example.expense.entity.User;
 import com.example.expense.repository.RoleRepository;
 import com.example.expense.service.UserService;
@@ -42,28 +43,35 @@ public class AdminUserController {
 
   @GetMapping("/add")
   public String addForm(Model model) {
-    model.addAttribute("user", new User());
+    model.addAttribute("user", new UserForm());
     model.addAttribute("roles", roleRepository.findAll());
     return "admin/user/add";
   }
 
   @PostMapping("/add")
-  public String add(@ModelAttribute User user) {
-    userService.create(user);
-
+  public String add(@ModelAttribute UserForm userForm) {
+    userService.create(userForm);
     return "redirect:/admin/users";
   }
 
   @GetMapping("/edit/{id}")
   public String editForm(@PathVariable Long id, Model model) {
-    model.addAttribute("user", userService.findById(id));
+    User user = userService.findById(id);
+    UserForm form = new UserForm();
+    form.setId(user.getId());
+    form.setName(user.getName());
+    form.setEmail(user.getEmail());
+    form.setRoleId(user.getRole() != null ? user.getRole().getId() : null);
+    form.setActive(user.getIsActive() != null && user.getIsActive());
+
+    model.addAttribute("user", form);
     model.addAttribute("roles", roleRepository.findAll());
     return "admin/user/edit";
   }
 
   @PostMapping("/edit/{id}")
-  public String update(@PathVariable Long id, @ModelAttribute User user) {
-    userService.update(id, user);
+  public String update(@PathVariable Long id, @ModelAttribute UserForm form) {
+    userService.update(id, form);
     return "redirect:/admin/users";
   }
 
