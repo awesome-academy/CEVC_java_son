@@ -5,7 +5,6 @@ import com.example.expense.enums.RoleType;
 import com.example.expense.repository.CategoryRepository;
 import com.example.expense.repository.UserRepository;
 import com.example.expense.service.ExpenseService;
-import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -48,7 +47,6 @@ public class AdminExpenseController {
   @GetMapping("/add")
   public String addForm(Model model) {
     Expense expense = new Expense();
-    expense.setUuid(UUID.randomUUID().toString());
 
     model.addAttribute("expense", expense);
     model.addAttribute("categories", categoryRepository.findAll());
@@ -91,7 +89,7 @@ public class AdminExpenseController {
     return "redirect:/admin/expenses";
   }
 
-  @GetMapping("/delete/{id}")
+  @PostMapping("/delete/{id}")
   public String delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
     boolean deleted = expenseService.deleteById(id);
     if (deleted) {

@@ -106,10 +106,15 @@
                                            th:href="@{/admin/expenses/edit/{id}(id=${e.id})}"
                                            th:text="#{common.edit}"></a>
 
-                                        <a class="btn btn-sm btn-danger"
-                                           th:href="@{/admin/expenses/delete/{id}(id=${e.id})}"
-                                           th:onclick="|return confirm('#{common.delete_confirm}');|"
-                                           th:text="#{common.delete}"></a>
+                                        <form th:action="@{/admin/expenses/delete/{id}(id=${e.id})}"
+                                            method="post"
+                                            style="display:inline;">
+                                            <button type="submit"
+                                                    class="btn btn-danger btn-sm"
+                                                    th:onclick="|return confirm('#{common.delete_confirm}');|">
+                                                <span th:text="#{common.delete}">Delete</span>
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
 

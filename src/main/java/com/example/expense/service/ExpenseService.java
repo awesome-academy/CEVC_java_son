@@ -15,9 +15,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class ExpenseService {
 
   private final ExpenseRepository expenseRepository;
@@ -36,20 +38,24 @@ public class ExpenseService {
   }
 
   public Expense saveExpense(Expense expense) {
-    if (expense.getUser() == null || expense.getUser().getId() == null) {
-      throw new ResourceNotFoundException("User is required");
+    if (expense == null) {
+      throw new IllegalArgumentException("expense.expense_cannot_null");
     }
+    if (expense.getUser() == null || expense.getUser().getId() == null) {
+      throw new IllegalArgumentException("expense.user_cannot_null");
+    }
+
     User user =
         userRepository
             .findById(expense.getUser().getId())
-            .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+            .orElseThrow(() -> new ResourceNotFoundException("error.model_not_found"));
     expense.setUser(user);
 
     if (expense.getCategory() != null && expense.getCategory().getId() != null) {
       Category category =
           categoryRepository
               .findById(expense.getCategory().getId())
-              .orElseThrow(() -> new ResourceNotFoundException("Category not found"));
+              .orElseThrow(() -> new ResourceNotFoundException("error.model_not_found"));
       expense.setCategory(category);
     } else {
       expense.setCategory(null);
@@ -68,13 +74,13 @@ public class ExpenseService {
 
   public Expense updateExpense(Expense expense) {
     if (expense.getId() == null) {
-      throw new ResourceNotFoundException("Invalid Expense ID");
+      throw new ResourceNotFoundException("expense.invalid_id");
     }
 
     Expense existing =
         expenseRepository
             .findById(expense.getId())
-            .orElseThrow(() -> new ResourceNotFoundException("Expense not found"));
+            .orElseThrow(() -> new ResourceNotFoundException("error.model_not_found"));
 
     existing.setTitle(expense.getTitle());
     existing.setAmount(expense.getAmount());
@@ -85,7 +91,7 @@ public class ExpenseService {
       User user =
           userRepository
               .findById(expense.getUser().getId())
-              .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+              .orElseThrow(() -> new ResourceNotFoundException("error.model_not_found"));
       existing.setUser(user);
     }
 
@@ -93,7 +99,7 @@ public class ExpenseService {
       Category category =
           categoryRepository
               .findById(expense.getCategory().getId())
-              .orElseThrow(() -> new ResourceNotFoundException("Category not found"));
+              .orElseThrow(() -> new ResourceNotFoundException("error.model_not_found"));
       existing.setCategory(category);
     } else {
       existing.setCategory(null);
@@ -103,11 +109,14 @@ public class ExpenseService {
   }
 
   public boolean deleteById(Long id) {
-    if (expenseRepository.existsById(id)) {
-      expenseRepository.deleteById(id);
-      return true;
-    }
-    return false;
+    return expenseRepository
+        .findById(id)
+        .map(
+            expense -> {
+              expenseRepository.delete(expense);
+              return true;
+            })
+        .orElse(false);
   }
 
   public List<Expense> findAll() {
