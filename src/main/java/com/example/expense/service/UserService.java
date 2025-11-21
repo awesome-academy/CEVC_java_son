@@ -1,5 +1,6 @@
 package com.example.expense.service;
 
+import com.example.expense.dto.UserForm;
 import com.example.expense.entity.Role;
 import com.example.expense.entity.User;
 import com.example.expense.enums.RoleType;
@@ -7,6 +8,7 @@ import com.example.expense.exception.ResourceNotFoundException;
 import com.example.expense.repository.RoleRepository;
 import com.example.expense.repository.UserRepository;
 import java.util.List;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -40,10 +42,24 @@ public class UserService {
         .orElseThrow(() -> new ResourceNotFoundException("error.model_not_found"));
   }
 
-  public User create(User user) {
-    user.setPasswordHash(passwordEncoder.encode(user.getPasswordHash()));
+  public User create(UserForm form) {
+    if (form.getRawPassword() == null || form.getRawPassword().isBlank()) {
+      throw new IllegalArgumentException("Password cannot be empty");
+    }
 
-    if (user.getRole() == null) {
+    User user = new User();
+    user.setName(form.getName());
+    user.setEmail(form.getEmail());
+    user.setPasswordHash(passwordEncoder.encode(form.getRawPassword()));
+    user.setUuid(UUID.randomUUID().toString());
+
+    if (form.getRoleId() != null) {
+      Role role =
+          roleRepository
+              .findById(form.getRoleId())
+              .orElseThrow(() -> new ResourceNotFoundException("error.model_not_found"));
+      user.setRole(role);
+    } else {
       Role defaultRole =
           roleRepository
               .findByName(RoleType.USER)
@@ -51,16 +67,30 @@ public class UserService {
       user.setRole(defaultRole);
     }
 
+    user.setIsActive(form.isActive());
+
     return userRepository.save(user);
   }
 
-  public User update(Long id, User updated) {
+  public User update(Long id, UserForm form) {
     User user = findById(id);
 
-    user.setName(updated.getName());
-    user.setEmail(updated.getEmail());
-    user.setRole(updated.getRole());
-    user.setIsActive(updated.getIsActive());
+    user.setName(form.getName());
+    user.setEmail(user.getEmail());
+
+    if (form.getRoleId() != null) {
+      Role role =
+          roleRepository
+              .findById(form.getRoleId())
+              .orElseThrow(() -> new ResourceNotFoundException("error.model_not_found"));
+      user.setRole(role);
+    }
+
+    user.setIsActive(form.isActive());
+
+    if (form.getRawPassword() != null && !form.getRawPassword().isBlank()) {
+      user.setPasswordHash(passwordEncoder.encode(form.getRawPassword()));
+    }
 
     return userRepository.save(user);
   }

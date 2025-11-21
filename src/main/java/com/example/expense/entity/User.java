@@ -44,10 +44,7 @@ public class User {
   @Column(name = "password_hash")
   private String passwordHash;
 
-  @NotBlank
-  @Size(min = 8)
-  @Transient
-  private String password;
+  @Transient private String password;
 
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "role_id")

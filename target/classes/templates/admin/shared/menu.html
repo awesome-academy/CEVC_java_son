@@ -34,7 +34,7 @@
                     <a href="#" 
                     class="nav-link" 
                     th:classappend="${currentPath.startsWith('/admin/users')} ? ' active'">
-                        <i class="nav-icon fas fa-copy"></i>
+                        <i class="nav-icon fas fa-users"></i>
                         <p>
                             <span th:text="#{menu.users}"></span>
                             <i class="right fas fa-angle-left"></i>
@@ -62,7 +62,7 @@
                     <a href="#" 
                     class="nav-link" 
                     th:classappend="${currentPath.startsWith('/admin/categories')} ? ' active'">
-                        <i class="nav-icon fas fa-copy"></i>
+                        <i class="nav-icon fas fa-tags"></i>
                         <p>
                             <span th:text="#{menu.categories}"></span>
                             <i class="right fas fa-angle-left"></i>
@@ -79,6 +79,34 @@
                             <a class="nav-link" th:href="@{/admin/categories/add}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p th:text="#{category.add_new}"></p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- Expenses -->
+                <li class="nav-item" 
+                    th:classappend="${currentPath.startsWith('/admin/expenses')} ? ' menu-open'">
+                    <a href="#" 
+                    class="nav-link" 
+                    th:classappend="${currentPath.startsWith('/admin/expenses')} ? ' active'">
+                        <i class="nav-icon fas fa-money-bill-wave"></i>
+                        <p>
+                            <span th:text="#{menu.expenses}"></span>
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item" th:classappend="${currentPath == '/admin/expenses'} ? ' active'">
+                            <a class="nav-link" th:href="@{/admin/expenses}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p th:text="#{expense.list}"></p>
+                            </a>
+                        </li>
+                        <li class="nav-item" th:classappend="${currentPath == '/admin/expenses/add'} ? ' active'">
+                            <a class="nav-link" th:href="@{/admin/expenses/add}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p th:text="#{expense.add_new}"></p>
                             </a>
                         </li>
                     </ul>
