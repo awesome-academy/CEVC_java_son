@@ -19,7 +19,7 @@ spring:
       mode: never
 
   flyway:
-    enabled: true
+    enabled: false
     locations: classpath:db/migration
     baseline-on-migrate: true
     encoding: UTF-8
@@ -32,7 +32,8 @@ spring:
   messages:
     basename: lang/messages
     encoding: UTF-8
-
+file:
+  upload-dir: uploads
 server:
   port: 8081
 
