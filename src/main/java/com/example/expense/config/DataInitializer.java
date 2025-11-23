@@ -59,6 +59,8 @@ public class DataInitializer implements CommandLineRunner {
               .passwordHash(passwordEncoder.encode("Aa@123456"))
               .role(adminRole)
               .isActive(true)
+              .createdAt(LocalDateTime.now())
+              .updatedAt(LocalDateTime.now())
               .build());
     }
   }
