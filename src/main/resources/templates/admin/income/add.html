@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html layout:decorate="~{admin/shared/layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{income.add_new}">Add Income</title>
+</head>
+
+<body>
+
+<div layout:fragment="content">
+
+    <!-- Header -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 th:text="#{income.add_new}">Add Income</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a th:href="@{/}" th:text="#{menu.home}"></a></li>
+                        <li class="breadcrumb-item active" th:text="#{income.add_new}"></li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+
+                <div class="col-md-12">
+
+                    <div class="card card-primary">
+
+                        <div class="card-header">
+                            <h3 class="card-title" th:text="#{income.add_new}">Add Income</h3>
+                        </div>
+
+                        <form role="form" method="post"
+                              th:action="@{/admin/incomes/add}"
+                              th:object="${income}"
+                              enctype="multipart/form-data">
+
+                            <div class="card-body">
+
+                                <!-- Title -->
+                                <div class="form-group">
+                                    <label for="title" th:text="#{income.title}">Title</label>
+                                    <input type="text" id="title" class="form-control"
+                                           placeholder="Enter income title"
+                                           th:field="*{title}" required>
+                                </div>
+
+                                <!-- Amount -->
+                                <div class="form-group">
+                                    <label for="amount" th:text="#{income.amount}">Amount</label>
+                                    <input type="number" id="amount" class="form-control"
+                                           placeholder="Enter amount"
+                                           step="0.01" min="0"
+                                           th:field="*{amount}" required>
+                                </div>
+
+                                <!-- Income Date -->
+                                <div class="form-group">
+                                    <label for="incomeDate" th:text="#{income.date}">Income Date</label>
+                                    <input type="date" id="incomeDate" class="form-control"
+                                           th:field="*{incomeDate}" required>
+                                </div>
+
+                                <!-- User -->
+                                <div class="form-group">
+                                    <label for="user" th:text="#{income.user}">User</label>
+                                    <select class="form-control" id="user" th:field="*{user.id}" required>
+                                        <option value="">-- Select User --</option>
+                                        <option th:each="u : ${users}"
+                                                th:value="${u.id}"
+                                                th:text="${u.name}">
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <!-- Category -->
+                                <div class="form-group">
+                                    <label for="category" th:text="#{income.category}">Category</label>
+                                    <select class="form-control" id="category" th:field="*{category.id}">
+                                        <option value="">-- None --</option>
+                                        <option th:each="c : ${categories}"
+                                                th:value="${c.id}"
+                                                th:text="${c.name}">
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <!-- Note -->
+                                <div class="form-group">
+                                    <label for="note" th:text="#{income.note}">Note</label>
+                                    <textarea class="form-control" id="note" rows="3"
+                                              placeholder="Enter note..."
+                                              th:field="*{note}"></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="attachments" th:text="#{income.attachments}">Attachments</label>
+                                    <input type="file" id="attachments" name="attachments" multiple class="form-control">
+                                    <small class="form-text text-muted">You can upload multiple files (jpg, png, pdf, docx)</small>
+                                </div>
+
+                            </div>
+
+                            <!-- Footer -->
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary" th:text="#{common.save}">Save</button>
+                                <a th:href="@{/admin/incomes}" class="btn btn-secondary" th:text="#{common.cancel}">
+                                    Cancel
+                                </a>
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<th:block layout:fragment="script">
+    <script>
+        // custom script if needed
+    </script>
+</th:block>
+
+</body>
+</html>

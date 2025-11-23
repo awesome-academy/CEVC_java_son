@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html layout:decorate="~{admin/shared/layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{income.list}">Income List</title>
+</head>
+
+<body>
+
+<div layout:fragment="content">
+
+    <!-- Header -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 th:text="#{menu.incomes}">Incomes</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a th:href="@{/}" th:text="#{menu.home}"></a></li>
+                        <li class="breadcrumb-item active" th:text="#{menu.incomes}"></li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content -->
+    <section class="content">
+        <div class="container-fluid">
+
+            <!-- Add + Search -->
+            <div class="row mb-2">
+                <div class="col-md-6">
+                    <a class="btn btn-primary" th:href="@{/admin/incomes/add}" th:text="#{income.add_new}">Add</a>
+                </div>
+
+                <div class="col-md-6">
+                    <form class="form-inline float-right" th:action="@{/admin/incomes}" method="get">
+                        <div class="input-group input-group-sm">
+                            <input type="text" name="q" class="form-control"
+                                   placeholder="Search incomes..." th:value="${param.q}">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="submit">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Table -->
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title" th:text="#{income.list}">Income List</h3>
+                        </div>
+
+                        <div class="card-body table-responsive p-0">
+
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th style="width: 50px">#</th>
+                                    <th th:text="#{common.uuid}">UUID</th>
+                                    <th th:text="#{income.title}">Title</th>
+                                    <th th:text="#{income.amount}">Amount</th>
+                                    <th th:text="#{income.date}">Date</th>
+                                    <th th:text="#{income.user}">User</th>
+                                    <th th:text="#{income.category}">Category</th>
+                                    <th th:text="#{income.note}">Note</th>
+                                    <th style="width: 150px" th:text="#{common.actions}">Actions</th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+
+                                <tr th:if="${#lists.isEmpty(incomes)}">
+                                    <td colspan="9" class="text-center" th:text="#{common.no_records}"></td>
+                                </tr>
+
+                                <tr th:each="i, idx : ${incomes}">
+                                    <td th:text="${(currentPage - 1) * pageSize + idx.index + 1}"></td>
+                                    <td th:text="${i.uuid}"></td>
+                                    <td th:text="${i.title}"></td>
+
+                                    <!-- Amount formatting -->
+                                    <td th:text="${#numbers.formatDecimal(i.amount, 1, 'COMMA', 2, 'POINT')}"></td>
+
+                                    <td th:text="${i.incomeDate}"></td>
+
+                                    <td th:text="${i.user != null ? i.user.name : '-'}"></td>
+                                    <td th:text="${i.category != null ? i.category.name : '-'}"></td>
+
+                                    <td th:text="${i.note}"></td>
+
+                                    <td>
+                                        <a class="btn btn-sm btn-warning"
+                                           th:href="@{/admin/incomes/edit/{id}(id=${i.id})}"
+                                           th:text="#{common.edit}"></a>
+
+                                        <form th:action="@{/admin/incomes/delete/{id}(id=${i.id})}"
+                                            method="post"
+                                            style="display:inline;">
+                                            <button type="submit"
+                                                    class="btn btn-danger btn-sm"
+                                                    th:onclick="|return confirm('#{common.delete_confirm}');|">
+                                                <span th:text="#{common.delete}">Delete</span>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Pagination -->
+                        <div class="card-footer clearfix">
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div th:if="${totalItems != null}">
+                                        <small th:text="'Showing page ' + ${currentPage} + ' of ' + ${totalPages} + ' — Total: ' + ${totalItems}">Info</small>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+
+                                    <ul class="pagination pagination-sm m-0 float-right"
+                                        th:if="${totalPages != null and totalPages > 1}">
+
+                                        <!-- Prev -->
+                                        <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled'">
+                                            <a class="page-link"
+                                               th:href="@{/admin/incomes(page=${currentPage - 1}, size=${pageSize})}"
+                                               th:if="${currentPage > 1}">&laquo;</a>
+                                            <span class="page-link" th:if="${currentPage == 1}">&laquo;</span>
+                                        </li>
+
+                                        <!-- Pages -->
+                                        <li th:each="p : ${#numbers.sequence(1, totalPages)}"
+                                            class="page-item"
+                                            th:classappend="${p == currentPage} ? ' active'">
+                                            <a class="page-link"
+                                               th:href="@{/admin/incomes(page=${p}, size=${pageSize})}"
+                                               th:text="${p}">1</a>
+                                        </li>
+
+                                        <!-- Next -->
+                                        <li class="page-item" th:classappend="${currentPage == totalPages} ? 'disabled'">
+                                            <a class="page-link"
+                                               th:href="@{/admin/incomes(page=${currentPage + 1}, size=${pageSize})}"
+                                               th:if="${currentPage < totalPages}">&raquo;</a>
+                                            <span class="page-link" th:if="${currentPage == totalPages}">&raquo;</span>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+</div>
+
+<th:block layout:fragment="script">
+    <script>
+        // custom script
+    </script>
+</th:block>
+
+</body>
+</html>

@@ -1,11 +1,4 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <a class="brand-link" th:href="@{/admin/dashboard}">
-        <img alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-             src="/webjars/AdminLTE/3.2.0/dist/img/AdminLTELogo.png"
-             style="opacity: .8">
-        <span class="brand-text font-weight-light">Admin Panel</span>
-    </a>
-
     <div class="sidebar">
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
@@ -107,6 +100,34 @@
                             <a class="nav-link" th:href="@{/admin/expenses/add}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p th:text="#{expense.add_new}"></p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- Incomes -->
+                <li class="nav-item" 
+                    th:classappend="${currentPath.startsWith('/admin/incomes')} ? ' menu-open'">
+                    <a href="#" 
+                    class="nav-link" 
+                    th:classappend="${currentPath.startsWith('/admin/incomes')} ? ' active'">
+                        <i class="nav-icon fas fa-hand-holding-usd"></i>
+                        <p>
+                            <span th:text="#{menu.incomes}"></span>
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item" th:classappend="${currentPath == '/admin/incomes'} ? ' active'">
+                            <a class="nav-link" th:href="@{/admin/incomes}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p th:text="#{income.list}"></p>
+                            </a>
+                        </li>
+                        <li class="nav-item" th:classappend="${currentPath == '/admin/incomes/add'} ? ' active'">
+                            <a class="nav-link" th:href="@{/admin/incomes/add}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p th:text="#{income.add_new}"></p>
                             </a>
                         </li>
                     </ul>
