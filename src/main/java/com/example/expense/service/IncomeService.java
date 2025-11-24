@@ -10,6 +10,7 @@ import com.example.expense.repository.CategoryRepository;
 import com.example.expense.repository.IncomeRepository;
 import com.example.expense.repository.UserRepository;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -73,10 +74,12 @@ public class IncomeService {
     if (income.getIncomeDate() == null) {
       income.setIncomeDate(LocalDate.now());
     }
+    income.setCreatedAt(LocalDateTime.now());
+    income.setUpdatedAt(LocalDateTime.now());
 
     Income savedIncome = incomeRepository.save(income);
 
-    // Xử lý upload attachments
+    // Handle uploading new attachments.
     if (files != null) {
       for (MultipartFile file : files) {
         if (!file.isEmpty()) {
@@ -90,6 +93,7 @@ public class IncomeService {
                   .fileType(file.getContentType())
                   .attachmentableId(savedIncome.getId())
                   .attachmentableType("Income")
+                  .uploadedAt(LocalDateTime.now())
                   .build();
 
           attachmentRepository.save(attachment);
@@ -148,6 +152,7 @@ public class IncomeService {
                   .fileType(file.getContentType())
                   .attachmentableId(existing.getId())
                   .attachmentableType("Income")
+                  .uploadedAt(LocalDateTime.now())
                   .build();
 
           attachmentRepository.save(attachment);

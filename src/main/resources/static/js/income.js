@@ -1,11 +1,11 @@
 function deleteFile(btn) {
-    const csrfToken = window.CSRF_TOKEN; // Lấy từ global
+    const csrfToken = window.CSRF_TOKEN;
 
     let fileId = btn.getAttribute('data-id');
 
     if (!confirm('Are you sure you want to delete this file?')) return;
 
-    fetch('/attachments/delete/' + fileId, {
+    fetch('/admin/attachments/delete/' + fileId, {
         method: 'DELETE',
         headers: {
             'X-CSRF-TOKEN': csrfToken

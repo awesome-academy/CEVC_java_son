@@ -132,6 +132,34 @@
                         </li>
                     </ul>
                 </li>
+
+                <!-- Budget Templates -->
+                <li class="nav-item" 
+                    th:classappend="${currentPath.startsWith('/admin/budget-templates')} ? ' menu-open'">
+                    <a href="#" 
+                    class="nav-link" 
+                    th:classappend="${currentPath.startsWith('/admin/budget-templates')} ? ' active'">
+                        <i class="nav-icon fas fa-file-invoice-dollar"></i>
+                        <p>
+                            <span th:text="#{menu.templates}"></span>
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item" th:classappend="${currentPath == '/admin/budget-templates'} ? ' active'">
+                            <a class="nav-link" th:href="@{/admin/budget-templates}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p th:text="#{template.list}"></p>
+                            </a>
+                        </li>
+                        <li class="nav-item" th:classappend="${currentPath == '/admin/budget-templates/add'} ? ' active'">
+                            <a class="nav-link" th:href="@{/admin/budget-templates/add}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p th:text="#{template.add_new}"></p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </nav>
     </div>

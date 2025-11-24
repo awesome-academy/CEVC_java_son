@@ -57,11 +57,13 @@ public class AdminIncomeController {
   @PostMapping("/add")
   public String add(
       @ModelAttribute Income income,
-      @RequestParam(value = "attachments", required = false) List<MultipartFile> attachments,
+      @RequestParam(value = "attachmentFiles", required = false)
+          List<MultipartFile> attachmentFiles,
       RedirectAttributes redirectAttributes)
       throws IOException {
 
-    incomeService.saveIncome(income, attachments);
+    incomeService.saveIncome(income, attachmentFiles);
+
     redirectAttributes.addFlashAttribute("success", "Income created successfully");
     return "redirect:/admin/incomes";
   }
@@ -89,10 +91,11 @@ public class AdminIncomeController {
   @PostMapping("/edit")
   public String edit(
       @ModelAttribute Income income,
-      @RequestParam(value = "attachments", required = false) List<MultipartFile> attachments,
+      @RequestParam(value = "attachmentFiles", required = false)
+          List<MultipartFile> attachmentFiles,
       RedirectAttributes redirectAttributes) {
 
-    incomeService.updateIncome(income, attachments);
+    incomeService.updateIncome(income, attachmentFiles);
 
     redirectAttributes.addFlashAttribute("success", "Income updated successfully");
     return "redirect:/admin/incomes";

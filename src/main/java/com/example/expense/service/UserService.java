@@ -7,6 +7,7 @@ import com.example.expense.enums.RoleType;
 import com.example.expense.exception.ResourceNotFoundException;
 import com.example.expense.repository.RoleRepository;
 import com.example.expense.repository.UserRepository;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -68,6 +69,8 @@ public class UserService {
     }
 
     user.setIsActive(form.isActive());
+    user.setCreatedAt(LocalDateTime.now());
+    user.setUpdatedAt(LocalDateTime.now());
 
     return userRepository.save(user);
   }

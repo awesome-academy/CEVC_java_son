@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html layout:decorate="~{admin/shared/layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{template.add_new}">Add Budget Template</title>
+</head>
+
+<body>
+
+<div layout:fragment="content">
+
+    <!-- Header -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 th:text="#{template.add_new}">Add Budget Template</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a th:href="@{/}" th:text="#{menu.home}"></a></li>
+                        <li class="breadcrumb-item active" th:text="#{template.add_new}"></li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+
+                <div class="col-md-12">
+
+                    <div class="card card-primary">
+
+                        <div class="card-header">
+                            <h3 class="card-title" th:text="#{template.add_new}">Add Budget Template</h3>
+                        </div>
+
+                        <form role="form" method="post"
+                              th:action="@{/admin/budget-templates/add}"
+                              th:object="${template}">
+
+                            <div class="card-body">
+
+                                <!-- Name -->
+                                <div class="form-group">
+                                    <label for="name" th:text="#{template.name}">Name</label>
+                                    <input type="text" id="name" class="form-control"
+                                           placeholder="Enter template name"
+                                           th:field="*{name}" required>
+                                </div>
+
+                                <!-- Period -->
+                                <div class="form-group">
+                                    <label for="period" th:text="#{template.period}">Period</label>
+                                    <input type="date" id="period" class="form-control"
+                                           th:field="*{period}">
+                                </div>
+
+                                <!-- Default Amount -->
+                                <div class="form-group">
+                                    <label for="defaultAmount" th:text="#{template.default_amount}">Default Amount</label>
+                                    <input type="number" id="defaultAmount" class="form-control"
+                                           placeholder="Enter default amount"
+                                           step="0.01" min="0"
+                                           th:field="*{defaultAmount}" required>
+                                </div>
+
+                                <!-- Category -->
+                                <div class="form-group">
+                                    <label for="category" th:text="#{template.category}">Category</label>
+                                    <select class="form-control" id="category" th:field="*{category.id}">
+                                        <option value="">-- None --</option>
+                                        <option th:each="c : ${categories}"
+                                                th:value="${c.id}"
+                                                th:text="${c.name}">
+                                        </option>
+                                    </select>
+                                </div>
+
+                            </div>
+
+                            <!-- Footer -->
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary" th:text="#{common.save}">Save</button>
+                                <a th:href="@{/admin/budget-templates}" class="btn btn-secondary" th:text="#{common.cancel}">
+                                    Cancel
+                                </a>
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<th:block layout:fragment="script">
+    <script>
+        // custom script if needed
+    </script>
+</th:block>
+
+</body>
+</html>
