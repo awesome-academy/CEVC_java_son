@@ -5,6 +5,8 @@ import com.example.expense.enums.RoleType;
 import com.example.expense.repository.CategoryRepository;
 import com.example.expense.repository.UserRepository;
 import com.example.expense.service.ExpenseService;
+import java.io.IOException;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,6 +15,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -56,8 +59,13 @@ public class AdminExpenseController {
   }
 
   @PostMapping("/add")
-  public String add(@ModelAttribute Expense expense, RedirectAttributes redirectAttributes) {
-    expenseService.saveExpense(expense);
+  public String add(
+      @ModelAttribute Expense expense,
+      @RequestParam(value = "attachmentFiles", required = false)
+          List<MultipartFile> attachmentFiles,
+      RedirectAttributes redirectAttributes)
+      throws IOException {
+    expenseService.saveExpense(expense, attachmentFiles);
     redirectAttributes.addFlashAttribute("success", "Expense created successfully");
     return "redirect:/admin/expenses";
   }
@@ -83,8 +91,12 @@ public class AdminExpenseController {
   }
 
   @PostMapping("/edit")
-  public String edit(@ModelAttribute Expense expense, RedirectAttributes redirectAttributes) {
-    expenseService.updateExpense(expense);
+  public String edit(
+      @ModelAttribute Expense expense,
+      @RequestParam(value = "attachmentFiles", required = false)
+          List<MultipartFile> attachmentFiles,
+      RedirectAttributes redirectAttributes) {
+    expenseService.updateExpense(expense, attachmentFiles);
     redirectAttributes.addFlashAttribute("success", "Expense updated successfully");
     return "redirect:/admin/expenses";
   }

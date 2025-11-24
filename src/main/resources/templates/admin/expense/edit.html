@@ -41,7 +41,8 @@
 
                         <form role="form" method="post"
                               th:action="@{/admin/expenses/edit}"
-                              th:object="${expense}">
+                              th:object="${expense}"
+                              enctype="multipart/form-data">
 
                             <input type="hidden" th:field="*{id}"/>
 
@@ -122,9 +123,32 @@
                                               th:field="*{note}"
                                               placeholder="Enter note"></textarea>
                                 </div>
+                                <div class="form-group">
+                                    <label th:text="#{expense.attachments}">Attachments</label>
+                                    <input type="file" id="attachments" name="attachmentFiles" multiple class="form-control">
+                                    <small class="form-text text-muted">You can upload multiple files (jpg, png, pdf, docx)</small>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Existing Files</label>
+                                    <ul class="list-group">
+                                        <li class="list-group-item d-flex justify-content-between align-items-center"
+                                            th:each="file : ${expense.attachments}">
+                                            <span th:text="${file.fileName}"></span>
+                                            <div>
+                                                <a th:href="@{/admin/attachments/download/{id}(id=${file.id})}" class="btn btn-sm btn-success">Download</a>
+                                                <button type="button" class="btn btn-sm btn-danger" 
+                                                        th:attr="data-id=${file.id}" onclick="deleteFile(this)">
+                                                    Delete
+                                                </button>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
 
                             </div>
 
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" id="csrfToken"/>
                             <div class="card-footer">
                                 <button class="btn btn-primary" type="submit" th:text="#{common.save}">Save</button>
                                 <a class="btn btn-secondary" th:href="@{/admin/expenses}" th:text="#{common.cancel}">Cancel</a>
@@ -142,9 +166,11 @@
 </div>
 
 <th:block layout:fragment="script">
-    <script>
-        // custom script if needed
+    <script th:inline="javascript">
+        window.CSRF_TOKEN = document.getElementById('csrfToken').value;
     </script>
+
+    <script src="/js/expense.js"></script>
 </th:block>
 
 </body>
