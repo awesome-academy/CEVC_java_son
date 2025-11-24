@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html layout:decorate="~{admin/shared/layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Income</title>
+</head>
+
+<body>
+
+<div layout:fragment="content">
+
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 th:text="#{income.edit}">Edit Income</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a th:href="@{/}" th:text="#{menu.home}"></a></li>
+                        <li class="breadcrumb-item active" th:text="#{income.edit}">Edit Income</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+
+                <div class="col-md-12">
+                    <div class="card card-primary">
+
+                        <div class="card-header">
+                            <h3 class="card-title" th:text="#{income.edit}">Edit Income</h3>
+                        </div>
+
+                        <form role="form" method="post"
+                              th:action="@{/admin/incomes/edit}"
+                              th:object="${income}"
+                              enctype="multipart/form-data">
+
+                            <input type="hidden" th:field="*{id}"/>
+
+                            <div class="card-body">
+
+                                <!-- Title -->
+                                <div class="form-group">
+                                    <label for="title" th:text="#{income.title}">Title</label>
+                                    <input class="form-control"
+                                           id="title"
+                                           type="text"
+                                           th:field="*{title}"
+                                           placeholder="Enter income title"
+                                           required>
+                                </div>
+
+                                <!-- Amount -->
+                                <div class="form-group">
+                                    <label for="amount" th:text="#{income.amount}">Amount</label>
+                                    <input class="form-control"
+                                           id="amount"
+                                           type="number"
+                                           step="0.01"
+                                           min="0"
+                                           th:field="*{amount}"
+                                           placeholder="Enter amount"
+                                           required>
+                                </div>
+
+                                <!-- Income Date -->
+                                <div class="form-group">
+                                    <label for="incomeDate" th:text="#{income.date}">Income Date</label>
+                                    <input class="form-control"
+                                           id="incomeDate"
+                                           type="date"
+                                           name="incomeDate"
+                                           th:value="${formattedDate}"
+                                           required>
+                                </div>
+
+                                <!-- Category -->
+                                <div class="form-group">
+                                    <label for="category" th:text="#{income.category}">Category</label>
+                                    <select class="form-control"
+                                            id="category"
+                                            th:field="*{category.id}">
+                                        <option value="">-- Select Category --</option>
+                                        <option th:each="c : ${categories}"
+                                                th:value="${c.id}"
+                                                th:text="${c.name}"
+                                                th:selected="${income.category != null and income.category.id == c.id}">
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <!-- User -->
+                                <div class="form-group">
+                                    <label for="user" th:text="#{income.user}">User</label>
+                                    <select class="form-control"
+                                            id="user"
+                                            name="userId"
+                                            required>
+                                        <option value="">-- Select User --</option>
+                                        <option th:each="u : ${users}"
+                                                th:value="${u.id}"
+                                                th:text="${u.name}"
+                                                th:selected="${income.user != null and income.user.id == u.id}">
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <!-- Note -->
+                                <div class="form-group">
+                                    <label for="note" th:text="#{income.note}">Note</label>
+                                    <textarea class="form-control"
+                                              id="note"
+                                              rows="3"
+                                              th:field="*{note}"
+                                              placeholder="Enter note"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label th:text="#{income.attachments}">Attachments</label>
+                                    <input type="file" id="attachments" name="attachments" multiple class="form-control">
+                                    <small class="form-text text-muted">You can upload multiple files (jpg, png, pdf, docx)</small>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Existing Files</label>
+                                    <ul class="list-group">
+                                        <li class="list-group-item d-flex justify-content-between align-items-center"
+                                            th:each="file : ${income.attachments}">
+                                            <span th:text="${file.fileName}"></span>
+                                            <div>
+                                                <a th:href="@{/attachments/download/{id}(id=${file.id})}" class="btn btn-sm btn-success">Download</a>
+                                                <button type="button" class="btn btn-sm btn-danger" 
+                                                        th:attr="data-id=${file.id}" onclick="deleteFile(this)">
+                                                    Delete
+                                                </button>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" id="csrfToken"/>
+                            <div class="card-footer">
+                                <button class="btn btn-primary" type="submit" th:text="#{common.save}">Save</button>
+                                <a class="btn btn-secondary" th:href="@{/admin/incomes}" th:text="#{common.cancel}">Cancel</a>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<th:block layout:fragment="script">
+    <script th:inline="javascript">
+        window.CSRF_TOKEN = document.getElementById('csrfToken').value;
+    </script>
+
+    <script src="/js/income.js"></script>
+</th:block>
+
+</body>
+</html>

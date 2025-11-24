@@ -1,6 +1,5 @@
 package com.example.expense.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -27,14 +26,6 @@ public class Attachment {
   @Column(nullable = false, unique = true, length = 36)
   private String uuid;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(
-      name = "expense_id",
-      nullable = false,
-      foreignKey = @ForeignKey(name = "fk_attachments_expense_id"))
-  @JsonBackReference
-  private Expense expense;
-
   @NotBlank
   @Size(max = 255)
   @Column(name = "file_name", nullable = false, length = 255)
@@ -54,9 +45,9 @@ public class Attachment {
   @Column(name = "uploaded_at", nullable = false, updatable = false)
   private LocalDateTime uploadedAt;
 
-  @Column(name = "created_at")
-  private LocalDateTime createdAt;
+  @Column(name = "attachmentable_type", nullable = false, length = 20)
+  private String attachmentableType;
 
-  @Column(name = "updated_at")
-  private LocalDateTime updatedAt;
+  @Column(name = "attachmentable_id", nullable = false)
+  private Long attachmentableId;
 }
