@@ -134,7 +134,7 @@ public class IncomeService {
       existing.setCategory(null);
     }
 
-    // Xử lý upload attachments mới
+    // Handle uploading new attachments.
     if (files != null) {
       for (MultipartFile file : files) {
         if (!file.isEmpty()) {
@@ -158,12 +158,23 @@ public class IncomeService {
     return incomeRepository.save(existing);
   }
 
+  @Transactional
   public boolean deleteById(Long id) {
     return incomeRepository
         .findById(id)
         .map(
             income -> {
+              List<Attachment> attachments = income.getAttachments();
+
+              if (attachments != null) {
+                for (Attachment attachment : attachments) {
+                  fileStorageService.deleteFile(attachment.getFileName());
+                  attachmentRepository.delete(attachment);
+                }
+              }
+
               incomeRepository.delete(income);
+
               return true;
             })
         .orElse(false);
