@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="com.example.expense.ExpenseApplicationTests" time="4.903" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="com.example.expense.ExpenseApplicationTests" time="4.702" tests="1" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="17"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -14,7 +14,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="US"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/java-17-openjdk-amd64/lib"/>
-    <property name="sun.java.command" value="/home/tran.thanh.son@sun-asterisk.com/Desktop/CEVC_java_son/target/surefire/surefirebooter-20251119132343244_3.jar /home/tran.thanh.son@sun-asterisk.com/Desktop/CEVC_java_son/target/surefire 2025-11-19T13-23-43_162-jvmRun1 surefire-20251119132343244_1tmp surefire_0-20251119132343244_2tmp"/>
+    <property name="sun.java.command" value="/home/tran.thanh.son@sun-asterisk.com/Desktop/CEVC_java_son/target/surefire/surefirebooter-20251121160748116_3.jar /home/tran.thanh.son@sun-asterisk.com/Desktop/CEVC_java_son/target/surefire 2025-11-21T16-07-48_072-jvmRun1 surefire-20251121160748116_1tmp surefire_0-20251121160748116_2tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="/home/tran.thanh.son@sun-asterisk.com/Desktop/CEVC_java_son/target/test-classes:/home/tran.thanh.son@sun-asterisk.com/Desktop/CEVC_java_son/target/classes:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/springframework/boot/spring-boot-starter-web/3.5.6/spring-boot-starter-web-3.5.6.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/springframework/boot/spring-boot-starter/3.5.6/spring-boot-starter-3.5.6.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/springframework/boot/spring-boot-starter-logging/3.5.6/spring-boot-starter-logging-3.5.6.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/ch/qos/logback/logback-classic/1.5.18/logback-classic-1.5.18.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/ch/qos/logback/logback-core/1.5.18/logback-core-1.5.18.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/apache/logging/log4j/log4j-to-slf4j/2.24.3/log4j-to-slf4j-2.24.3.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/apache/logging/log4j/log4j-api/2.24.3/log4j-api-2.24.3.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/slf4j/jul-to-slf4j/2.0.17/jul-to-slf4j-2.0.17.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/jakarta/annotation/jakarta.annotation-api/2.1.1/jakarta.annotation-api-2.1.1.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/yaml/snakeyaml/2.4/snakeyaml-2.4.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/springframework/boot/spring-boot-starter-json/3.5.6/spring-boot-starter-json-3.5.6.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.19.2/jackson-databind-2.19.2.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/com/fasterxml/jackson/datatype/jackson-datatype-jdk8/2.19.2/jackson-datatype-jdk8-2.19.2.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/com/fasterxml/jackson/module/jackson-module-parameter-names/2.19.2/jackson-module-parameter-names-2.19.2.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/springframework/boot/spring-boot-starter-tomcat/3.5.6/spring-boot-starter-tomcat-3.5.6.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/apache/tomcat/embed/tomcat-embed-core/10.1.46/tomcat-embed-core-10.1.46.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/apache/tomcat/embed/tomcat-embed-websocket/10.1.46/tomcat-embed-websocket-10.1.46.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/springframework/spring-web/6.2.11/spring-web-6.2.11.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/springframework/spring-beans/6.2.11/spring-beans-6.2.11.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/springframework/spring-webmvc/6.2.11/spring-webmvc-6.2.11.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/springframework/spring-context/6.2.11/spring-context-6.2.11.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/springframework/spring-expression/6.2.11/spring-expression-6.2.11.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/springframework/boot/spring-boot-starter-jdbc/3.5.6/spring-boot-starter-jdbc-3.5.6.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/com/zaxxer/HikariCP/6.3.3/HikariCP-6.3.3.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/springframework/spring-jdbc/6.2.11/spring-jdbc-6.2.11.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/springframework/spring-tx/6.2.11/spring-tx-6.2.11.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/springframework/boot/spring-boot-starter-data-jpa/3.5.6/spring-boot-starter-data-jpa-3.5.6.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/hibernate/orm/hibernate-core/6.6.29.Final/hibernate-core-6.6.29.Final.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/jakarta/persistence/jakarta.persistence-api/3.1.0/jakarta.persistence-api-3.1.0.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/jakarta/transaction/jakarta.transaction-api/2.0.1/jakarta.transaction-api-2.0.1.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/jboss/logging/jboss-logging/3.6.1.Final/jboss-logging-3.6.1.Final.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/hibernate/common/hibernate-commons-annotations/7.0.3.Final/hibernate-commons-annotations-7.0.3.Final.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/io/smallrye/jandex/3.2.0/jandex-3.2.0.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/com/fasterxml/classmate/1.7.0/classmate-1.7.0.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/net/bytebuddy/byte-buddy/1.17.7/byte-buddy-1.17.7.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/glassfish/jaxb/jaxb-runtime/4.0.5/jaxb-runtime-4.0.5.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/glassfish/jaxb/jaxb-core/4.0.5/jaxb-core-4.0.5.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/eclipse/angus/angus-activation/2.0.2/angus-activation-2.0.2.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/glassfish/jaxb/txw2/4.0.5/txw2-4.0.5.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/com/sun/istack/istack-commons-runtime/4.1.2/istack-commons-runtime-4.1.2.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/jakarta/inject/jakarta.inject-api/2.0.1/jakarta.inject-api-2.0.1.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/antlr/antlr4-runtime/4.13.0/antlr4-runtime-4.13.0.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/springframework/data/spring-data-jpa/3.5.4/spring-data-jpa-3.5.4.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/springframework/data/spring-data-commons/3.5.4/spring-data-commons-3.5.4.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/springframework/spring-orm/6.2.11/spring-orm-6.2.11.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/springframework/spring-aspects/6.2.11/spring-aspects-6.2.11.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/springframework/boot/spring-boot-starter-aop/3.5.6/spring-boot-starter-aop-3.5.6.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/springframework/spring-aop/6.2.11/spring-aop-6.2.11.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/aspectj/aspectjweaver/1.9.24/aspectjweaver-1.9.24.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/springframework/boot/spring-boot-devtools/3.5.6/spring-boot-devtools-3.5.6.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/springframework/boot/spring-boot/3.5.6/spring-boot-3.5.6.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/springframework/boot/spring-boot-autoconfigure/3.5.6/spring-boot-autoconfigure-3.5.6.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/projectlombok/lombok/1.18.34/lombok-1.18.34.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/springframework/boot/spring-boot-starter-test/3.5.6/spring-boot-starter-test-3.5.6.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/springframework/boot/spring-boot-test/3.5.6/spring-boot-test-3.5.6.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/springframework/boot/spring-boot-test-autoconfigure/3.5.6/spring-boot-test-autoconfigure-3.5.6.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/com/jayway/jsonpath/json-path/2.9.0/json-path-2.9.0.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/jakarta/xml/bind/jakarta.xml.bind-api/4.0.2/jakarta.xml.bind-api-4.0.2.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/jakarta/activation/jakarta.activation-api/2.1.4/jakarta.activation-api-2.1.4.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/net/minidev/json-smart/2.5.2/json-smart-2.5.2.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/net/minidev/accessors-smart/2.5.2/accessors-smart-2.5.2.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/ow2/asm/asm/9.7.1/asm-9.7.1.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/assertj/assertj-core/3.27.4/assertj-core-3.27.4.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/awaitility/awaitility/4.2.2/awaitility-4.2.2.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/hamcrest/hamcrest/3.0/hamcrest-3.0.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/junit/jupiter/junit-jupiter/5.12.2/junit-jupiter-5.12.2.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.12.2/junit-jupiter-api-5.12.2.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/junit/platform/junit-platform-commons/1.12.2/junit-platform-commons-1.12.2.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.12.2/junit-jupiter-params-5.12.2.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.12.2/junit-jupiter-engine-5.12.2.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/junit/platform/junit-platform-engine/1.12.2/junit-platform-engine-1.12.2.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/mockito/mockito-core/5.17.0/mockito-core-5.17.0.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/net/bytebuddy/byte-buddy-agent/1.17.7/byte-buddy-agent-1.17.7.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/objenesis/objenesis/3.3/objenesis-3.3.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/mockito/mockito-junit-jupiter/5.17.0/mockito-junit-jupiter-5.17.0.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/skyscreamer/jsonassert/1.5.3/jsonassert-1.5.3.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/com/vaadin/external/google/android-json/0.0.20131108.vaadin1/android-json-0.0.20131108.vaadin1.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/springframework/spring-core/6.2.11/spring-core-6.2.11.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/springframework/spring-jcl/6.2.11/spring-jcl-6.2.11.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/springframework/spring-test/6.2.11/spring-test-6.2.11.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/xmlunit/xmlunit-core/2.10.4/xmlunit-core-2.10.4.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/springframework/boot/spring-boot-starter-security/3.5.6/spring-boot-starter-security-3.5.6.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/springframework/security/spring-security-config/6.5.5/spring-security-config-6.5.5.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/springframework/security/spring-security-core/6.5.5/spring-security-core-6.5.5.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/springframework/security/spring-security-crypto/6.5.5/spring-security-crypto-6.5.5.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/springframework/security/spring-security-web/6.5.5/spring-security-web-6.5.5.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/springframework/boot/spring-boot-starter-validation/3.5.6/spring-boot-starter-validation-3.5.6.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/apache/tomcat/embed/tomcat-embed-el/10.1.46/tomcat-embed-el-10.1.46.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/hibernate/validator/hibernate-validator/8.0.3.Final/hibernate-validator-8.0.3.Final.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/jakarta/validation/jakarta.validation-api/3.0.2/jakarta.validation-api-3.0.2.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/springframework/boot/spring-boot-starter-thymeleaf/3.5.6/spring-boot-starter-thymeleaf-3.5.6.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/thymeleaf/thymeleaf-spring6/3.1.3.RELEASE/thymeleaf-spring6-3.1.3.RELEASE.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/springframework/boot/spring-boot-starter-actuator/3.5.6/spring-boot-starter-actuator-3.5.6.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/springframework/boot/spring-boot-actuator-autoconfigure/3.5.6/spring-boot-actuator-autoconfigure-3.5.6.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/springframework/boot/spring-boot-actuator/3.5.6/spring-boot-actuator-3.5.6.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/io/micrometer/micrometer-observation/1.15.4/micrometer-observation-1.15.4.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/io/micrometer/micrometer-commons/1.15.4/micrometer-commons-1.15.4.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/io/micrometer/micrometer-jakarta9/1.15.4/micrometer-jakarta9-1.15.4.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/io/micrometer/micrometer-core/1.15.4/micrometer-core-1.15.4.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/hdrhistogram/HdrHistogram/2.2.2/HdrHistogram-2.2.2.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/latencyutils/LatencyUtils/2.0.3/LatencyUtils-2.0.3.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/thymeleaf/extras/thymeleaf-extras-springsecurity6/3.1.3.RELEASE/thymeleaf-extras-springsecurity6-3.1.3.RELEASE.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/slf4j/slf4j-api/2.0.17/slf4j-api-2.0.17.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/flywaydb/flyway-core/11.7.2/flyway-core-11.7.2.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/com/fasterxml/jackson/dataformat/jackson-dataformat-toml/2.19.2/jackson-dataformat-toml-2.19.2.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.19.2/jackson-core-2.19.2.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/com/fasterxml/jackson/datatype/jackson-datatype-jsr310/2.19.2/jackson-datatype-jsr310-2.19.2.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.19.2/jackson-annotations-2.19.2.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/flywaydb/flyway-mysql/11.7.2/flyway-mysql-11.7.2.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/nz/net/ultraq/thymeleaf/thymeleaf-layout-dialect/3.4.0/thymeleaf-layout-dialect-3.4.0.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/apache/groovy/groovy/4.0.28/groovy-4.0.28.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/nz/net/ultraq/groovy/groovy-extensions/2.3.3/groovy-extensions-2.3.3.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/nz/net/ultraq/thymeleaf/thymeleaf-expression-processor/3.2.0/thymeleaf-expression-processor-3.2.0.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/thymeleaf/thymeleaf/3.1.3.RELEASE/thymeleaf-3.1.3.RELEASE.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/ognl/ognl/3.3.4/ognl-3.3.4.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/javassist/javassist/3.29.0-GA/javassist-3.29.0-GA.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/attoparser/attoparser/2.0.7.RELEASE/attoparser-2.0.7.RELEASE.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/unbescape/unbescape/1.1.6.RELEASE/unbescape-1.1.6.RELEASE.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/com/mysql/mysql-connector-j/9.4.0/mysql-connector-j-9.4.0.jar:/home/tran.thanh.son@sun-asterisk.com/.m2/repository/org/webjars/AdminLTE/3.2.0/AdminLTE-3.2.0.jar:"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -31,7 +31,7 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="FILE_LOG_CHARSET" value="UTF-8"/>
     <property name="java.awt.headless" value="true"/>
-    <property name="surefire.real.class.path" value="/home/tran.thanh.son@sun-asterisk.com/Desktop/CEVC_java_son/target/surefire/surefirebooter-20251119132343244_3.jar"/>
+    <property name="surefire.real.class.path" value="/home/tran.thanh.son@sun-asterisk.com/Desktop/CEVC_java_son/target/surefire/surefirebooter-20251121160748116_3.jar"/>
     <property name="polyglot.engine.WarnInterpreterOnly" value="false"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="17.0.16+8-Ubuntu-0ubuntu122.04.1"/>
@@ -49,7 +49,7 @@
     <property name="user.dir" value="/home/tran.thanh.son@sun-asterisk.com/Desktop/CEVC_java_son"/>
     <property name="os.arch" value="amd64"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="PID" value="89070"/>
+    <property name="PID" value="61346"/>
     <property name="CONSOLE_LOG_CHARSET" value="UTF-8"/>
     <property name="native.encoding" value="UTF-8"/>
     <property name="java.library.path" value="/usr/java/packages/lib:/usr/lib/x86_64-linux-gnu/jni:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu:/usr/lib/jni:/lib:/usr/lib"/>
@@ -60,10 +60,10 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="61.0"/>
   </properties>
-  <testcase name="contextLoads" classname="com.example.expense.ExpenseApplicationTests" time="0.308">
-    <system-out><![CDATA[13:23:43.780 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.example.expense.ExpenseApplicationTests]: ExpenseApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-13:23:43.852 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.example.expense.ExpenseApplication for test class com.example.expense.ExpenseApplicationTests
-13:23:43.953 [main] INFO org.springframework.boot.devtools.restart.RestartApplicationListener -- Restart disabled due to context in which it is running
+  <testcase name="contextLoads" classname="com.example.expense.ExpenseApplicationTests" time="0.26">
+    <system-out><![CDATA[16:07:48.553 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.example.expense.ExpenseApplicationTests]: ExpenseApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+16:07:48.610 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.example.expense.ExpenseApplication for test class com.example.expense.ExpenseApplicationTests
+16:07:48.697 [main] INFO org.springframework.boot.devtools.restart.RestartApplicationListener -- Restart disabled due to context in which it is running
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -74,24 +74,24 @@
 
  :: Spring Boot ::                (v3.5.6)
 
-2025-11-19T13:23:44.154+07:00  INFO 89070 --- [           main] c.e.expense.ExpenseApplicationTests      : Starting ExpenseApplicationTests using Java 17.0.16 with PID 89070 (started by tran.thanh.son@sun-asterisk.com in /home/tran.thanh.son@sun-asterisk.com/Desktop/CEVC_java_son)
-2025-11-19T13:23:44.155+07:00  INFO 89070 --- [           main] c.e.expense.ExpenseApplicationTests      : No active profile set, falling back to 1 default profile: "default"
-2025-11-19T13:23:44.966+07:00  INFO 89070 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-11-19T13:23:45.008+07:00  INFO 89070 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 31 ms. Found 3 JPA repository interfaces.
-2025-11-19T13:23:45.390+07:00  INFO 89070 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2025-11-19T13:23:45.639+07:00  INFO 89070 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@17f41739
-2025-11-19T13:23:45.640+07:00  INFO 89070 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2025-11-19T13:23:45.679+07:00  INFO 89070 --- [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:mysql://localhost:3306/expense_management (MySQL 8.0)
-2025-11-19T13:23:45.739+07:00  INFO 89070 --- [           main] o.f.core.internal.command.DbValidate     : Successfully validated 1 migration (execution time 00:00.030s)
-2025-11-19T13:23:45.753+07:00  INFO 89070 --- [           main] o.f.core.internal.command.DbMigrate      : Current version of schema `expense_management`: 1
-2025-11-19T13:23:45.755+07:00  INFO 89070 --- [           main] o.f.core.internal.command.DbMigrate      : Schema `expense_management` is up to date. No migration necessary.
-2025-11-19T13:23:45.812+07:00  INFO 89070 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-11-19T13:23:45.847+07:00  INFO 89070 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.29.Final
-2025-11-19T13:23:45.876+07:00  INFO 89070 --- [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2025-11-19T13:23:46.052+07:00  INFO 89070 --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-11-19T13:23:46.087+07:00  WARN 89070 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2025-11-19T13:23:46.088+07:00  WARN 89070 --- [           main] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2025-11-19T13:23:46.099+07:00  INFO 89070 --- [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+2025-11-21T16:07:48.879+07:00  INFO 61346 --- [           main] c.e.expense.ExpenseApplicationTests      : Starting ExpenseApplicationTests using Java 17.0.16 with PID 61346 (started by tran.thanh.son@sun-asterisk.com in /home/tran.thanh.son@sun-asterisk.com/Desktop/CEVC_java_son)
+2025-11-21T16:07:48.879+07:00  INFO 61346 --- [           main] c.e.expense.ExpenseApplicationTests      : No active profile set, falling back to 1 default profile: "default"
+2025-11-21T16:07:49.543+07:00  INFO 61346 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-11-21T16:07:49.584+07:00  INFO 61346 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 35 ms. Found 4 JPA repository interfaces.
+2025-11-21T16:07:50.056+07:00  INFO 61346 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-11-21T16:07:50.271+07:00  INFO 61346 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@340fc1aa
+2025-11-21T16:07:50.272+07:00  INFO 61346 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-11-21T16:07:50.307+07:00  INFO 61346 --- [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:mysql://localhost:3306/expense_management (MySQL 8.0)
+2025-11-21T16:07:50.350+07:00  INFO 61346 --- [           main] o.f.core.internal.command.DbValidate     : Successfully validated 1 migration (execution time 00:00.023s)
+2025-11-21T16:07:50.369+07:00  INFO 61346 --- [           main] o.f.core.internal.command.DbMigrate      : Current version of schema `expense_management`: 1
+2025-11-21T16:07:50.372+07:00  INFO 61346 --- [           main] o.f.core.internal.command.DbMigrate      : Schema `expense_management` is up to date. No migration necessary.
+2025-11-21T16:07:50.421+07:00  INFO 61346 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-21T16:07:50.464+07:00  INFO 61346 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.29.Final
+2025-11-21T16:07:50.482+07:00  INFO 61346 --- [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-11-21T16:07:50.638+07:00  INFO 61346 --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-11-21T16:07:50.668+07:00  WARN 61346 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-11-21T16:07:50.669+07:00  WARN 61346 --- [           main] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2025-11-21T16:07:50.677+07:00  INFO 61346 --- [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
 	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
 	Database driver: undefined/unknown
 	Database version: 8.0
@@ -99,78 +99,78 @@
 	Isolation level: undefined/unknown
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-2025-11-19T13:23:46.871+07:00  INFO 89070 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-11-19T13:23:46.903+07:00 DEBUG 89070 --- [           main] org.hibernate.SQL                        : 
+2025-11-21T16:07:51.382+07:00  INFO 61346 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-11-21T16:07:51.413+07:00 DEBUG 61346 --- [           main] org.hibernate.SQL                        : 
     alter table activity_logs 
        modify column action enum ('CREATE','DELETE','EXPORT','IMPORT','LOGIN','LOGOUT','UPDATE') not null
 Hibernate: 
     alter table activity_logs 
        modify column action enum ('CREATE','DELETE','EXPORT','IMPORT','LOGIN','LOGOUT','UPDATE') not null
-2025-11-19T13:23:46.930+07:00 DEBUG 89070 --- [           main] org.hibernate.SQL                        : 
+2025-11-21T16:07:51.441+07:00 DEBUG 61346 --- [           main] org.hibernate.SQL                        : 
     alter table activity_logs 
        modify column entity_type enum ('BUDGET','CATEGORY','EXPENSE','INCOME','OTHER','TEMPLATE','USER') not null
 Hibernate: 
     alter table activity_logs 
        modify column entity_type enum ('BUDGET','CATEGORY','EXPENSE','INCOME','OTHER','TEMPLATE','USER') not null
-2025-11-19T13:23:46.949+07:00 DEBUG 89070 --- [           main] org.hibernate.SQL                        : 
+2025-11-21T16:07:51.484+07:00 DEBUG 61346 --- [           main] org.hibernate.SQL                        : 
     alter table budgets 
        modify column period_type enum ('MONTHLY','YEARLY')
 Hibernate: 
     alter table budgets 
        modify column period_type enum ('MONTHLY','YEARLY')
-2025-11-19T13:23:46.971+07:00 DEBUG 89070 --- [           main] org.hibernate.SQL                        : 
+2025-11-21T16:07:51.516+07:00 DEBUG 61346 --- [           main] org.hibernate.SQL                        : 
     alter table categories 
        modify column type enum ('EXPENSE','INCOME')
 Hibernate: 
     alter table categories 
        modify column type enum ('EXPENSE','INCOME')
-2025-11-19T13:23:47.004+07:00 DEBUG 89070 --- [           main] org.hibernate.SQL                        : 
+2025-11-21T16:07:51.550+07:00 DEBUG 61346 --- [           main] org.hibernate.SQL                        : 
     alter table goals 
        modify column goal_type enum ('EXPENSE_LIMIT','SAVING','SPENDING')
 Hibernate: 
     alter table goals 
        modify column goal_type enum ('EXPENSE_LIMIT','SAVING','SPENDING')
-2025-11-19T13:23:47.028+07:00 DEBUG 89070 --- [           main] org.hibernate.SQL                        : 
+2025-11-21T16:07:51.580+07:00 DEBUG 61346 --- [           main] org.hibernate.SQL                        : 
     alter table import_export_logs 
        modify column action enum ('EXPORT','IMPORT')
 Hibernate: 
     alter table import_export_logs 
        modify column action enum ('EXPORT','IMPORT')
-2025-11-19T13:23:47.055+07:00 DEBUG 89070 --- [           main] org.hibernate.SQL                        : 
+2025-11-21T16:07:51.699+07:00 DEBUG 61346 --- [           main] org.hibernate.SQL                        : 
     alter table import_export_logs 
        modify column status enum ('FAILED','SUCCESS')
 Hibernate: 
     alter table import_export_logs 
        modify column status enum ('FAILED','SUCCESS')
-2025-11-19T13:23:47.079+07:00 DEBUG 89070 --- [           main] org.hibernate.SQL                        : 
+2025-11-21T16:07:51.735+07:00 DEBUG 61346 --- [           main] org.hibernate.SQL                        : 
     alter table notifications 
        modify column notification_type enum ('GOAL_REACHED','INFO','LIMIT_EXCEEDED')
 Hibernate: 
     alter table notifications 
        modify column notification_type enum ('GOAL_REACHED','INFO','LIMIT_EXCEEDED')
-2025-11-19T13:23:47.105+07:00 DEBUG 89070 --- [           main] org.hibernate.SQL                        : 
+2025-11-21T16:07:51.764+07:00 DEBUG 61346 --- [           main] org.hibernate.SQL                        : 
     alter table notifications 
        modify column source_entity enum ('BUDGET','EXPENSE','GOAL','INCOME','SYSTEM')
 Hibernate: 
     alter table notifications 
        modify column source_entity enum ('BUDGET','EXPENSE','GOAL','INCOME','SYSTEM')
-2025-11-19T13:23:47.129+07:00 DEBUG 89070 --- [           main] org.hibernate.SQL                        : 
+2025-11-21T16:07:51.790+07:00 DEBUG 61346 --- [           main] org.hibernate.SQL                        : 
     alter table roles 
        modify column name enum ('ADMIN','USER') not null
 Hibernate: 
     alter table roles 
        modify column name enum ('ADMIN','USER') not null
-2025-11-19T13:23:47.241+07:00  INFO 89070 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-11-19T13:23:47.470+07:00  WARN 89070 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2025-11-19T13:23:47.490+07:00  INFO 89070 --- [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
-2025-11-19T13:23:47.714+07:00  INFO 89070 --- [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
-2025-11-19T13:23:48.067+07:00  WARN 89070 --- [           main] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Deferred [Mvc [pattern='/adminlte/**'], Ant [pattern='/adminlte/**']]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2025-11-19T13:23:48.067+07:00  WARN 89070 --- [           main] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Deferred [Mvc [pattern='/css/**'], Ant [pattern='/css/**']]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2025-11-19T13:23:48.067+07:00  WARN 89070 --- [           main] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Deferred [Mvc [pattern='/js/**'], Ant [pattern='/js/**']]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2025-11-19T13:23:48.067+07:00  WARN 89070 --- [           main] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Deferred [Mvc [pattern='/images/**'], Ant [pattern='/images/**']]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2025-11-19T13:23:48.067+07:00  WARN 89070 --- [           main] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Deferred [Mvc [pattern='/webjars/**'], Ant [pattern='/webjars/**']]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2025-11-19T13:23:48.116+07:00  INFO 89070 --- [           main] c.e.expense.ExpenseApplicationTests      : Started ExpenseApplicationTests in 4.17 seconds (process running for 4.798)
-2025-11-19T13:23:48.225+07:00 DEBUG 89070 --- [           main] org.hibernate.SQL                        : 
+2025-11-21T16:07:51.885+07:00  INFO 61346 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-11-21T16:07:52.118+07:00  WARN 61346 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-11-21T16:07:52.140+07:00  INFO 61346 --- [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2025-11-21T16:07:52.364+07:00  INFO 61346 --- [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2025-11-21T16:07:52.723+07:00  WARN 61346 --- [           main] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Deferred [Mvc [pattern='/adminlte/**'], Ant [pattern='/adminlte/**']]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2025-11-21T16:07:52.724+07:00  WARN 61346 --- [           main] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Deferred [Mvc [pattern='/css/**'], Ant [pattern='/css/**']]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2025-11-21T16:07:52.724+07:00  WARN 61346 --- [           main] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Deferred [Mvc [pattern='/js/**'], Ant [pattern='/js/**']]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2025-11-21T16:07:52.724+07:00  WARN 61346 --- [           main] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Deferred [Mvc [pattern='/images/**'], Ant [pattern='/images/**']]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2025-11-21T16:07:52.724+07:00  WARN 61346 --- [           main] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Deferred [Mvc [pattern='/webjars/**'], Ant [pattern='/webjars/**']]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2025-11-21T16:07:52.772+07:00  INFO 61346 --- [           main] c.e.expense.ExpenseApplicationTests      : Started ExpenseApplicationTests in 4.081 seconds (process running for 4.604)
+2025-11-21T16:07:52.874+07:00 DEBUG 61346 --- [           main] org.hibernate.SQL                        : 
     select
         r1_0.id,
         r1_0.created_at,
@@ -194,7 +194,7 @@ Hibernate:
         roles r1_0 
     where
         r1_0.name=?
-2025-11-19T13:23:48.248+07:00 DEBUG 89070 --- [           main] org.hibernate.SQL                        : 
+2025-11-21T16:07:52.891+07:00 DEBUG 61346 --- [           main] org.hibernate.SQL                        : 
     select
         r1_0.id,
         r1_0.created_at,
@@ -218,7 +218,7 @@ Hibernate:
         roles r1_0 
     where
         r1_0.name=?
-2025-11-19T13:23:48.253+07:00 DEBUG 89070 --- [           main] org.hibernate.SQL                        : 
+2025-11-21T16:07:52.894+07:00 DEBUG 61346 --- [           main] org.hibernate.SQL                        : 
     select
         u1_0.id,
         u1_0.created_at,
@@ -248,7 +248,7 @@ Hibernate:
         users u1_0 
     where
         u1_0.email=?
-2025-11-19T13:23:48.264+07:00 DEBUG 89070 --- [           main] org.hibernate.SQL                        : 
+2025-11-21T16:07:52.902+07:00 DEBUG 61346 --- [           main] org.hibernate.SQL                        : 
     select
         r1_0.id,
         r1_0.created_at,
