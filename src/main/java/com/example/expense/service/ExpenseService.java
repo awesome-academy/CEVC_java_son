@@ -158,6 +158,7 @@ public class ExpenseService {
         }
       }
     }
+    existing.setUpdatedAt(LocalDateTime.now());
 
     return expenseRepository.save(existing);
   }
@@ -175,5 +176,10 @@ public class ExpenseService {
 
   public List<Expense> findAll() {
     return expenseRepository.findAll();
+  }
+
+  private boolean isValidFileType(String contentType) {
+    return contentType != null
+        && (contentType.startsWith("image/") || contentType.equals("application/pdf"));
   }
 }

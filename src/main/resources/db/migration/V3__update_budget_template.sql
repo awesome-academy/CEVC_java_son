@@ -1,5 +1,5 @@
 ALTER TABLE budget_templates
-    DROP COLUMN IF EXISTS default_category;
+    DROP COLUMN default_category;
 
 ALTER TABLE budget_templates
     ADD COLUMN category_id BIGINT;

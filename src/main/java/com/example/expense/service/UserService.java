@@ -94,6 +94,7 @@ public class UserService {
     if (form.getRawPassword() != null && !form.getRawPassword().isBlank()) {
       user.setPasswordHash(passwordEncoder.encode(form.getRawPassword()));
     }
+    user.setUpdatedAt(LocalDateTime.now());
 
     return userRepository.save(user);
   }

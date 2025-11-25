@@ -82,7 +82,7 @@
 
                                 <!-- Category -->
                                 <div class="form-group">
-                                    <label for="category">Category</label>
+                                    <label for="category" th:text="#{template.category}">Category</label>
                                     <select class="form-control"
                                             id="category"
                                             th:field="*{category.id}">
@@ -90,7 +90,7 @@
                                         <option th:each="c : ${categories}"
                                                 th:value="${c.id}"
                                                 th:text="${c.name}"
-                                                th:selected="${budgetTemplate.category != null and budgetTemplate.category.id == c.id}">
+                                                th:selected="${template.category != null and template.category.id == c.id}">
                                         </option>
                                     </select>
                                 </div>

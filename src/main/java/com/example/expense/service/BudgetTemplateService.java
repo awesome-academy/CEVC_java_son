@@ -36,14 +36,14 @@ public class BudgetTemplateService {
 
   public BudgetTemplate saveTemplate(BudgetTemplate template) {
     if (template == null) {
-      throw new IllegalArgumentException("template.cannot_be_null");
+      throw new IllegalArgumentException("error.template_cannot_be_null");
     }
 
     if (template.getCreatedBy() != null && template.getCreatedBy().getId() != null) {
       User user =
           userRepository
               .findById(template.getCreatedBy().getId())
-              .orElseThrow(() -> new ResourceNotFoundException("error.user_not_found"));
+              .orElseThrow(() -> new ResourceNotFoundException("error.model_not_found"));
       template.setCreatedBy(user);
     }
 
@@ -64,7 +64,7 @@ public class BudgetTemplateService {
     BudgetTemplate existing =
         budgetTemplateRepository
             .findById(template.getId())
-            .orElseThrow(() -> new ResourceNotFoundException("error.template_not_found"));
+            .orElseThrow(() -> new ResourceNotFoundException("error.model_not_found"));
 
     existing.setName(template.getName());
     existing.setPeriod(template.getPeriod());
@@ -75,14 +75,14 @@ public class BudgetTemplateService {
       User user =
           userRepository
               .findById(template.getUpdatedBy().getId())
-              .orElseThrow(() -> new ResourceNotFoundException("error.user_not_found"));
+              .orElseThrow(() -> new ResourceNotFoundException("error.model_not_found"));
       existing.setUpdatedBy(user);
     }
+    existing.setUpdatedAt(LocalDateTime.now());
 
     return budgetTemplateRepository.save(existing);
   }
 
-  @Transactional
   public boolean deleteById(Long id) {
     return budgetTemplateRepository
         .findById(id)

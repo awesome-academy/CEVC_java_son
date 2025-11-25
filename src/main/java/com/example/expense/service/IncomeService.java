@@ -159,6 +159,7 @@ public class IncomeService {
         }
       }
     }
+    existing.setUpdatedAt(LocalDateTime.now());
 
     return incomeRepository.save(existing);
   }

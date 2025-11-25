@@ -14,7 +14,6 @@ import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Table(name = "incomes")
@@ -60,8 +59,6 @@ public class Income {
   @Where(clause = "attachmentable_type = 'Income'")
   @JoinColumn(name = "attachmentable_id", referencedColumnName = "id")
   private List<Attachment> attachments = new ArrayList<>();
-
-  @Transient private List<MultipartFile> attachmentFiles;
 
   @Lob private String note;
 
