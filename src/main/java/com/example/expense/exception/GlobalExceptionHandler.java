@@ -4,30 +4,26 @@ import java.util.HashMap;
 import java.util.Map;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
   @ExceptionHandler(MethodArgumentNotValidException.class)
-  public ResponseEntity<Map<String, String>> handleValidationErrors(
-      MethodArgumentNotValidException ex) {
+  public ResponseEntity<?> handleValidationErrors(MethodArgumentNotValidException ex) {
     Map<String, String> errors = new HashMap<>();
+
     ex.getBindingResult()
-        .getAllErrors()
-        .forEach(
-            err -> {
-              String field = ((FieldError) err).getField();
-              String message = err.getDefaultMessage();
-              errors.put(field, message);
-            });
+        .getFieldErrors()
+        .forEach(error -> errors.put(error.getField(), error.getDefaultMessage()));
+
     return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
   }
 
-  @ExceptionHandler(ResourceNotFoundException.class)
-  public ResponseEntity<String> handleNotFound(ResourceNotFoundException ex) {
-    return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+  @ExceptionHandler(RuntimeException.class)
+  public ResponseEntity<?> handleRuntime(RuntimeException ex) {
+    return new ResponseEntity<>(Map.of("error", ex.getMessage()), HttpStatus.BAD_REQUEST);
   }
 }
