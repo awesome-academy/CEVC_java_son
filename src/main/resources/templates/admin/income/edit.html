@@ -125,7 +125,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label th:text="#{income.attachments}">Attachments</label>
-                                    <input type="file" id="attachments" name="attachments" multiple class="form-control">
+                                    <input type="file" id="attachments" name="attachmentFiles" multiple class="form-control">
                                     <small class="form-text text-muted">You can upload multiple files (jpg, png, pdf, docx)</small>
                                 </div>
 
@@ -136,7 +136,7 @@
                                             th:each="file : ${income.attachments}">
                                             <span th:text="${file.fileName}"></span>
                                             <div>
-                                                <a th:href="@{/attachments/download/{id}(id=${file.id})}" class="btn btn-sm btn-success">Download</a>
+                                                <a th:href="@{/admin/attachments/download/{id}(id=${file.id})}" class="btn btn-sm btn-success">Download</a>
                                                 <button type="button" class="btn btn-sm btn-danger" 
                                                         th:attr="data-id=${file.id}" onclick="deleteFile(this)">
                                                     Delete
@@ -170,7 +170,7 @@
         window.CSRF_TOKEN = document.getElementById('csrfToken').value;
     </script>
 
-    <script src="/js/income.js"></script>
+    <script src="/js/attachment.js"></script>
 </th:block>
 
 </body>

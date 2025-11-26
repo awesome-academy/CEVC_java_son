@@ -43,9 +43,10 @@ public class BudgetTemplate {
   @Column(name = "default_amount", precision = 15, scale = 2)
   private BigDecimal defaultAmount;
 
-  @Lob
-  @Column(name = "default_categories")
-  private String defaultCategories;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "category_id")
+  @JsonBackReference
+  private Category category;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(

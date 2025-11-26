@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.*;
 import org.hibernate.annotations.Where;
@@ -57,7 +58,7 @@ public class Income {
   @OneToMany(fetch = FetchType.LAZY)
   @Where(clause = "attachmentable_type = 'Income'")
   @JoinColumn(name = "attachmentable_id", referencedColumnName = "id")
-  private List<Attachment> attachments;
+  private List<Attachment> attachments = new ArrayList<>();
 
   @Lob private String note;
 

@@ -44,7 +44,8 @@
 
                         <form role="form" method="post"
                               th:action="@{/admin/expenses/add}"
-                              th:object="${expense}">
+                              th:object="${expense}"
+                              enctype="multipart/form-data">
 
                             <div class="card-body">
 
@@ -103,7 +104,11 @@
                                               placeholder="Enter note..."
                                               th:field="*{note}"></textarea>
                                 </div>
-
+                                <div class="form-group">
+                                    <label for="attachments" th:text="#{expense.attachments}">Attachments</label>
+                                    <input type="file" id="attachments" name="attachmentFiles" multiple class="form-control">
+                                    <small class="form-text text-muted">You can upload multiple files (jpg, png, pdf, docx)</small>
+                                </div>
                             </div>
 
                             <!-- Footer -->

@@ -1,13 +1,16 @@
 package com.example.expense.service;
 
+import com.example.expense.entity.Attachment;
 import com.example.expense.entity.Category;
 import com.example.expense.entity.Expense;
 import com.example.expense.entity.User;
 import com.example.expense.exception.ResourceNotFoundException;
+import com.example.expense.repository.AttachmentRepository;
 import com.example.expense.repository.CategoryRepository;
 import com.example.expense.repository.ExpenseRepository;
 import com.example.expense.repository.UserRepository;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -16,6 +19,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @RequiredArgsConstructor
@@ -25,6 +29,8 @@ public class ExpenseService {
   private final ExpenseRepository expenseRepository;
   private final UserRepository userRepository;
   private final CategoryRepository categoryRepository;
+  private final FileStorageService fileStorageService;
+  private final AttachmentRepository attachmentRepository;
 
   public Page<Expense> listExpenses(String keyword, Pageable pageable) {
     if (keyword == null || keyword.isBlank()) {
@@ -37,7 +43,7 @@ public class ExpenseService {
     return expenseRepository.findById(id);
   }
 
-  public Expense saveExpense(Expense expense) {
+  public Expense saveExpense(Expense expense, List<MultipartFile> files) {
     if (expense == null) {
       throw new IllegalArgumentException("expense.expense_cannot_null");
     }
@@ -68,11 +74,37 @@ public class ExpenseService {
     if (expense.getExpenseDate() == null) {
       expense.setExpenseDate(LocalDate.now());
     }
+    expense.setCreatedAt(LocalDateTime.now());
+    expense.setUpdatedAt(LocalDateTime.now());
 
-    return expenseRepository.save(expense);
+    Expense savedExpense = expenseRepository.save(expense);
+
+    // Handle uploading new attachments.
+    if (files != null) {
+      for (MultipartFile file : files) {
+        if (!file.isEmpty()) {
+          String fileName = fileStorageService.storeFile(file);
+
+          Attachment attachment =
+              Attachment.builder()
+                  .uuid(UUID.randomUUID().toString())
+                  .fileName(file.getOriginalFilename())
+                  .filePath(fileName)
+                  .fileType(file.getContentType())
+                  .attachmentableId(savedExpense.getId())
+                  .attachmentableType("Expense")
+                  .uploadedAt(LocalDateTime.now())
+                  .build();
+
+          attachmentRepository.save(attachment);
+        }
+      }
+    }
+
+    return savedExpense;
   }
 
-  public Expense updateExpense(Expense expense) {
+  public Expense updateExpense(Expense expense, List<MultipartFile> files) {
     if (expense.getId() == null) {
       throw new ResourceNotFoundException("expense.invalid_id");
     }
@@ -105,6 +137,29 @@ public class ExpenseService {
       existing.setCategory(null);
     }
 
+    // Handle uploading new attachments.
+    if (files != null) {
+      for (MultipartFile file : files) {
+        if (!file.isEmpty()) {
+          String fileName = fileStorageService.storeFile(file);
+
+          Attachment attachment =
+              Attachment.builder()
+                  .uuid(UUID.randomUUID().toString())
+                  .fileName(file.getOriginalFilename())
+                  .filePath(fileName)
+                  .fileType(file.getContentType())
+                  .attachmentableId(existing.getId())
+                  .attachmentableType("Expense")
+                  .uploadedAt(LocalDateTime.now())
+                  .build();
+
+          attachmentRepository.save(attachment);
+        }
+      }
+    }
+    existing.setUpdatedAt(LocalDateTime.now());
+
     return expenseRepository.save(existing);
   }
 
@@ -121,5 +176,10 @@ public class ExpenseService {
 
   public List<Expense> findAll() {
     return expenseRepository.findAll();
+  }
+
+  private boolean isValidFileType(String contentType) {
+    return contentType != null
+        && (contentType.startsWith("image/") || contentType.equals("application/pdf"));
   }
 }
