@@ -5,6 +5,7 @@ import com.example.expense.dto.IncomeResponse;
 import com.example.expense.entity.Category;
 import com.example.expense.entity.Income;
 import com.example.expense.entity.User;
+import com.example.expense.exception.AccessDeniedException;
 import com.example.expense.exception.ResourceNotFoundException;
 import com.example.expense.repository.CategoryRepository;
 import com.example.expense.service.IncomeService;
@@ -45,14 +46,10 @@ public class IncomeController {
       @RequestParam(defaultValue = "0") int page,
       @RequestParam(defaultValue = "10") int size) {
     User user = userService.getByEmail(auth.getName());
-    Page<Income> incomes = incomeService.listIncomes(null, PageRequest.of(page, size));
-    // filter only incomes of this user
-    List<Income> userIncomes =
-        incomes.getContent().stream()
-            .filter(i -> i.getUser().getId().equals(user.getId()))
-            .collect(Collectors.toList());
+    Page<Income> incomes =
+        incomeService.listIncomesByUser(user.getId(), PageRequest.of(page, size));
 
-    return userIncomes.stream().map(this::mapToResponse).collect(Collectors.toList());
+    return incomes.getContent().stream().map(this::mapToResponse).collect(Collectors.toList());
   }
 
   @PostMapping
@@ -60,23 +57,12 @@ public class IncomeController {
       @RequestPart("income") @Valid IncomeRequest request,
       @RequestPart(value = "files", required = false) List<MultipartFile> files,
       Authentication auth) {
+
     User user = userService.getByEmail(auth.getName());
 
-    Income income = new Income();
-    income.setTitle(request.getTitle());
-    income.setAmount(request.getAmount());
-    income.setIncomeDate(request.getIncomeDate());
-    income.setNote(request.getNote());
-    income.setUser(user);
-    if (request.getCategoryId() != null) {
-      Category category =
-          categoryRepository
-              .findById(request.getCategoryId())
-              .orElseThrow(() -> new ResourceNotFoundException("error.model_not_found"));
-      income.setCategory(category);
-    }
-
+    Income income = mapToEntity(request, user, new Income());
     Income saved = incomeService.saveIncome(income, files);
+
     return mapToResponse(saved);
   }
 
@@ -86,24 +72,21 @@ public class IncomeController {
       @RequestPart("income") @Valid IncomeRequest request,
       @RequestPart(value = "files", required = false) List<MultipartFile> files,
       Authentication auth) {
+
     User user = userService.getByEmail(auth.getName());
 
-    Income income = new Income();
-    income.setId(id);
-    income.setTitle(request.getTitle());
-    income.setAmount(request.getAmount());
-    income.setIncomeDate(request.getIncomeDate());
-    income.setNote(request.getNote());
-    income.setUser(user);
-    if (request.getCategoryId() != null) {
-      Category category =
-          categoryRepository
-              .findById(request.getCategoryId())
-              .orElseThrow(() -> new ResourceNotFoundException("error.model_not_found"));
-      income.setCategory(category);
+    Income existing =
+        incomeService
+            .findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("error.model_not_found"));
+
+    if (!existing.getUser().getId().equals(user.getId())) {
+      throw new AccessDeniedException("error.not_allowed");
     }
 
-    Income updated = incomeService.updateIncome(income, files);
+    Income updatedEntity = mapToEntity(request, user, existing);
+    Income updated = incomeService.updateIncome(updatedEntity, files);
+
     return mapToResponse(updated);
   }
 
@@ -111,12 +94,35 @@ public class IncomeController {
   public void deleteIncome(@PathVariable Long id, Authentication auth) {
     User user = userService.getByEmail(auth.getName());
     Income income =
-        incomeService.findById(id).orElseThrow(() -> new RuntimeException("income.not_found"));
+        incomeService
+            .findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("error.model_not_found"));
 
     if (!income.getUser().getId().equals(user.getId())) {
-      throw new RuntimeException("not_allowed");
+      throw new AccessDeniedException("not_allowed");
     }
 
     incomeService.deleteById(id);
+  }
+
+  private Income mapToEntity(IncomeRequest request, User user, Income target) {
+    target.setId(request.getId());
+    target.setTitle(request.getTitle());
+    target.setAmount(request.getAmount());
+    target.setIncomeDate(request.getIncomeDate());
+    target.setNote(request.getNote());
+    target.setUser(user);
+
+    if (request.getCategoryId() != null) {
+      Category category =
+          categoryRepository
+              .findById(request.getCategoryId())
+              .orElseThrow(() -> new ResourceNotFoundException("error.model_not_found"));
+      target.setCategory(category);
+    } else {
+      target.setCategory(null);
+    }
+
+    return target;
   }
 }

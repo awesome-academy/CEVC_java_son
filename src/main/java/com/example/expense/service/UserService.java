@@ -112,11 +112,11 @@ public class UserService {
 
   public void changePassword(User user, ChangePasswordRequest req) {
     if (!passwordEncoder.matches(req.getOldPassword(), user.getPassword())) {
-      throw new RuntimeException("auth.old_password_incorrect");
+      throw new IllegalArgumentException("auth.old_password_incorrect");
     }
 
     if (!req.getNewPassword().equals(req.getConfirmNewPassword())) {
-      throw new RuntimeException("auth.new_password_and_confirm_not_match");
+      throw new IllegalArgumentException("auth.new_password_and_confirm_not_match");
     }
 
     user.setPasswordHash(passwordEncoder.encode(req.getNewPassword()));

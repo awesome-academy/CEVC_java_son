@@ -22,6 +22,21 @@ public class GlobalExceptionHandler {
     return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
   }
 
+  @ExceptionHandler(AuthenticationFailedException.class)
+  public ResponseEntity<?> handleNotFound(AuthenticationFailedException ex) {
+    return new ResponseEntity<>(Map.of("error", ex.getMessage()), HttpStatus.UNAUTHORIZED);
+  }
+
+  @ExceptionHandler(AccessDeniedException.class)
+  public ResponseEntity<?> handleNotFound(AccessDeniedException ex) {
+    return new ResponseEntity<>(Map.of("error", ex.getMessage()), HttpStatus.FORBIDDEN);
+  }
+
+  @ExceptionHandler(ResourceNotFoundException.class)
+  public ResponseEntity<?> handleNotFound(ResourceNotFoundException ex) {
+    return new ResponseEntity<>(Map.of("error", ex.getMessage()), HttpStatus.NOT_FOUND);
+  }
+
   @ExceptionHandler(RuntimeException.class)
   public ResponseEntity<?> handleRuntime(RuntimeException ex) {
     return new ResponseEntity<>(Map.of("error", ex.getMessage()), HttpStatus.BAD_REQUEST);

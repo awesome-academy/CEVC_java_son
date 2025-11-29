@@ -6,6 +6,7 @@ import com.example.expense.dto.RegisterRequest;
 import com.example.expense.entity.Role;
 import com.example.expense.entity.User;
 import com.example.expense.enums.RoleType;
+import com.example.expense.exception.AuthenticationFailedException;
 import com.example.expense.exception.ResourceNotFoundException;
 import com.example.expense.repository.RoleRepository;
 import com.example.expense.repository.UserRepository;
@@ -28,10 +29,10 @@ public class AuthService {
     User user =
         userRepository
             .findByEmail(request.getEmail())
-            .orElseThrow(() -> new RuntimeException("auth.wrong_email_or_password"));
+            .orElseThrow(() -> new AuthenticationFailedException("auth.wrong_email_or_password"));
 
     if (!passwordEncoder.matches(request.getPassword(), user.getPasswordHash())) {
-      throw new RuntimeException("auth.wrong_email_or_password");
+      throw new AuthenticationFailedException("auth.wrong_email_or_password");
     }
 
     String token = jwtService.generateToken(user);
@@ -39,10 +40,6 @@ public class AuthService {
   }
 
   public User register(RegisterRequest request) {
-    if (!request.getPassword().equals(request.getConfirmPassword())) {
-      throw new IllegalArgumentException("auth.password_and_confirm_not_match");
-    }
-
     if (userRepository.existsByEmail(request.getEmail())) {
       throw new IllegalArgumentException("auth.email_already_exists");
     }

@@ -182,4 +182,8 @@ public class ExpenseService {
     return contentType != null
         && (contentType.startsWith("image/") || contentType.equals("application/pdf"));
   }
+
+  public List<Expense> findByUserId(Long userId) {
+    return expenseRepository.findByUserId(userId);
+  }
 }

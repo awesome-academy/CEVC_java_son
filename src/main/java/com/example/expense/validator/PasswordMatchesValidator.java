@@ -1,4 +1,4 @@
-package com.example.expense.validation;
+package com.example.expense.validator;
 
 import com.example.expense.dto.RegisterRequest;
 import jakarta.validation.ConstraintValidator;
