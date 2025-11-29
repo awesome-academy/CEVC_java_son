@@ -43,6 +43,10 @@ public class IncomeService {
     return incomeRepository.findById(id);
   }
 
+  public Page<Income> listIncomesByUser(Long userId, Pageable pageable) {
+    return incomeRepository.findByUserId(userId, pageable);
+  }
+
   public Income saveIncome(Income income, List<MultipartFile> files) {
     if (income == null) {
       throw new IllegalArgumentException("income.income_cannot_null");
@@ -107,7 +111,7 @@ public class IncomeService {
   @Transactional
   public Income updateIncome(Income income, List<MultipartFile> files) {
     if (income.getId() == null) {
-      throw new ResourceNotFoundException("income.invalid_id");
+      throw new IllegalArgumentException("income.invalid_id");
     }
 
     Income existing =

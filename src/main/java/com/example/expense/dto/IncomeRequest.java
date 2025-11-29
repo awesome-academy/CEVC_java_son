@@ -8,6 +8,8 @@ import lombok.Data;
 
 @Data
 public class IncomeRequest {
+  private Long id;
+
   @NotBlank private String title;
 
   @NotNull private BigDecimal amount;

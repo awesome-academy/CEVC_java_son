@@ -4,6 +4,7 @@ import com.example.expense.dto.ChangePasswordRequest;
 import com.example.expense.dto.UserProfileResponse;
 import com.example.expense.entity.User;
 import com.example.expense.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +25,7 @@ public class UserController {
 
   @PostMapping("/user/change-password")
   public String changePassword(
-      Authentication authentication, @RequestBody ChangePasswordRequest req) {
+      @Valid @RequestBody ChangePasswordRequest req, Authentication authentication) {
 
     String email = authentication.getName();
     User user = userService.getByEmail(email);

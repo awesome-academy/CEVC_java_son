@@ -5,6 +5,7 @@ import com.example.expense.dto.ExpenseResponse;
 import com.example.expense.entity.Category;
 import com.example.expense.entity.Expense;
 import com.example.expense.entity.User;
+import com.example.expense.exception.AccessDeniedException;
 import com.example.expense.exception.ResourceNotFoundException;
 import com.example.expense.repository.CategoryRepository;
 import com.example.expense.service.ExpenseService;
@@ -40,10 +41,8 @@ public class ExpenseController {
   @GetMapping
   public List<ExpenseResponse> listExpenses(Authentication auth) {
     User user = userService.getByEmail(auth.getName());
-    List<Expense> expenses =
-        expenseService.findAll().stream()
-            .filter(e -> e.getUser().getId().equals(user.getId()))
-            .collect(Collectors.toList());
+    List<Expense> expenses = expenseService.findByUserId(user.getId());
+
     return expenses.stream().map(this::mapToResponse).collect(Collectors.toList());
   }
 
@@ -52,22 +51,9 @@ public class ExpenseController {
       @RequestPart("expense") @Valid ExpenseRequest request,
       @RequestPart(value = "files", required = false) List<MultipartFile> files,
       Authentication auth) {
+
     User user = userService.getByEmail(auth.getName());
-
-    Expense expense = new Expense();
-    expense.setTitle(request.getTitle());
-    expense.setAmount(request.getAmount());
-    expense.setExpenseDate(request.getExpenseDate());
-    expense.setNote(request.getNote());
-    expense.setUser(user);
-    if (request.getCategoryId() != null) {
-      Category category =
-          categoryRepository
-              .findById(request.getCategoryId())
-              .orElseThrow(() -> new ResourceNotFoundException("error.model_not_found"));
-      expense.setCategory(category);
-    }
-
+    Expense expense = mapToEntity(request, user, null);
     Expense saved = expenseService.saveExpense(expense, files);
     return mapToResponse(saved);
   }
@@ -78,23 +64,18 @@ public class ExpenseController {
       @RequestPart("expense") @Valid ExpenseRequest request,
       @RequestPart(value = "files", required = false) List<MultipartFile> files,
       Authentication auth) {
-    User user = userService.getByEmail(auth.getName());
 
-    Expense expense = new Expense();
-    expense.setId(id);
-    expense.setTitle(request.getTitle());
-    expense.setAmount(request.getAmount());
-    expense.setExpenseDate(request.getExpenseDate());
-    expense.setNote(request.getNote());
-    expense.setUser(user);
-    if (request.getCategoryId() != null) {
-      Category category =
-          categoryRepository
-              .findById(request.getCategoryId())
-              .orElseThrow(() -> new ResourceNotFoundException("error.model_not_found"));
-      expense.setCategory(category);
+    User user = userService.getByEmail(auth.getName());
+    Expense existing =
+        expenseService
+            .findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("error.model_not_found"));
+
+    if (!existing.getUser().getId().equals(user.getId())) {
+      throw new AccessDeniedException("not_allowed");
     }
 
+    Expense expense = mapToEntity(request, user, id);
     Expense updated = expenseService.updateExpense(expense, files);
     return mapToResponse(updated);
   }
@@ -103,12 +84,35 @@ public class ExpenseController {
   public void deleteExpense(@PathVariable Long id, Authentication auth) {
     User user = userService.getByEmail(auth.getName());
     Expense expense =
-        expenseService.findById(id).orElseThrow(() -> new RuntimeException("expense.not_found"));
+        expenseService
+            .findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("error.model_not_found"));
 
     if (!expense.getUser().getId().equals(user.getId())) {
-      throw new RuntimeException("not_allowed");
+      throw new AccessDeniedException("not_allowed");
     }
 
     expenseService.deleteById(id);
+  }
+
+  private Expense mapToEntity(ExpenseRequest request, User user, Long id) {
+    Expense expense = new Expense();
+    if (id != null) {
+      expense.setId(id);
+    }
+    expense.setTitle(request.getTitle());
+    expense.setAmount(request.getAmount());
+    expense.setExpenseDate(request.getExpenseDate());
+    expense.setNote(request.getNote());
+    expense.setUser(user);
+
+    if (request.getCategoryId() != null) {
+      Category category =
+          categoryRepository
+              .findById(request.getCategoryId())
+              .orElseThrow(() -> new ResourceNotFoundException("error.model_not_found"));
+      expense.setCategory(category);
+    }
+    return expense;
   }
 }

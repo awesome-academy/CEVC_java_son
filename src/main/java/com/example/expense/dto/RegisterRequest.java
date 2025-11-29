@@ -1,6 +1,6 @@
 package com.example.expense.dto;
 
-import com.example.expense.validation.PasswordMatches;
+import com.example.expense.validator.PasswordMatches;
 import jakarta.validation.constraints.*;
 import lombok.*;
 

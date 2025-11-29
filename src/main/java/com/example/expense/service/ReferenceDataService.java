@@ -4,6 +4,7 @@ import com.example.expense.dto.BudgetTemplateResponse;
 import com.example.expense.dto.CategoryResponse;
 import com.example.expense.entity.BudgetTemplate;
 import com.example.expense.entity.Category;
+import com.example.expense.enums.CategoryType;
 import com.example.expense.repository.BudgetTemplateRepository;
 import com.example.expense.repository.CategoryRepository;
 import java.util.List;
@@ -20,8 +21,8 @@ public class ReferenceDataService {
   private final CategoryRepository categoryRepository;
   private final BudgetTemplateRepository budgetTemplateRepository;
 
-  public List<CategoryResponse> getAllCategories() {
-    List<Category> categories = categoryRepository.findAll();
+  public List<CategoryResponse> getCategoriesByType(CategoryType type) {
+    List<Category> categories = categoryRepository.findByType(type);
     return categories.stream()
         .map(c -> new CategoryResponse(c.getId(), c.getName(), c.getType()))
         .collect(Collectors.toList());
