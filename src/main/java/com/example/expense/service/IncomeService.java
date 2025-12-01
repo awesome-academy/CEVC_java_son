@@ -31,6 +31,7 @@ public class IncomeService {
   private final CategoryRepository categoryRepository;
   private final FileStorageService fileStorageService;
   private final AttachmentRepository attachmentRepository;
+  private final GoalService goalService;
 
   public Page<Income> listIncomes(String keyword, Pageable pageable) {
     if (keyword == null || keyword.isBlank()) {
@@ -104,6 +105,7 @@ public class IncomeService {
         }
       }
     }
+    goalService.recalcCurrentAmountByUser(user.getId());
 
     return savedIncome;
   }
@@ -164,17 +166,25 @@ public class IncomeService {
       }
     }
     existing.setUpdatedAt(LocalDateTime.now());
+    goalService.recalcCurrentAmountByUser(existing.getUser().getId());
 
     return incomeRepository.save(existing);
   }
 
   @Transactional
   public boolean deleteById(Long id) {
+    Income income =
+        incomeRepository
+            .findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("error.model_not_found"));
+    Long userId = income.getUser().getId();
+    goalService.recalcCurrentAmountByUser(userId);
+
     return incomeRepository
         .findById(id)
         .map(
-            income -> {
-              List<Attachment> attachments = income.getAttachments();
+            i -> {
+              List<Attachment> attachments = i.getAttachments();
 
               if (attachments != null) {
                 for (Attachment attachment : attachments) {
@@ -183,7 +193,7 @@ public class IncomeService {
                 }
               }
 
-              incomeRepository.delete(income);
+              incomeRepository.delete(i);
 
               return true;
             })

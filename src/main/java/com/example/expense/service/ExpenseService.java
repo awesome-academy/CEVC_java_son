@@ -31,6 +31,7 @@ public class ExpenseService {
   private final CategoryRepository categoryRepository;
   private final FileStorageService fileStorageService;
   private final AttachmentRepository attachmentRepository;
+  private final GoalService goalService;
 
   public Page<Expense> listExpenses(String keyword, Pageable pageable) {
     if (keyword == null || keyword.isBlank()) {
@@ -100,6 +101,7 @@ public class ExpenseService {
         }
       }
     }
+    goalService.recalcCurrentAmountByUser(user.getId());
 
     return savedExpense;
   }
@@ -160,15 +162,34 @@ public class ExpenseService {
     }
     existing.setUpdatedAt(LocalDateTime.now());
 
-    return expenseRepository.save(existing);
+    Expense savedExpense = expenseRepository.save(existing);
+    goalService.recalcCurrentAmountByUser(savedExpense.getUser().getId());
+
+    return savedExpense;
   }
 
   public boolean deleteById(Long id) {
+    Expense expense =
+        expenseRepository
+            .findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("error.model_not_found"));
+    Long userId = expense.getUser().getId();
+    goalService.recalcCurrentAmountByUser(userId);
     return expenseRepository
         .findById(id)
         .map(
-            expense -> {
-              expenseRepository.delete(expense);
+            e -> {
+              List<Attachment> attachments = e.getAttachments();
+
+              if (attachments != null) {
+                for (Attachment attachment : attachments) {
+                  fileStorageService.deleteFile(attachment.getFileName());
+                  attachmentRepository.delete(attachment);
+                }
+              }
+
+              expenseRepository.delete(e);
+
               return true;
             })
         .orElse(false);
