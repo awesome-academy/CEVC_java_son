@@ -18,6 +18,4 @@ public class BudgetRequest {
   @NotNull private PeriodType periodType;
 
   private Long categoryId;
-
-  private String note;
 }

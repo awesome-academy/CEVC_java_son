@@ -4,9 +4,7 @@ import com.example.expense.entity.Budget;
 import com.example.expense.entity.User;
 import com.example.expense.exception.ResourceNotFoundException;
 import com.example.expense.repository.BudgetRepository;
-import com.example.expense.repository.CategoryRepository;
 import com.example.expense.repository.UserRepository;
-import java.time.LocalDateTime;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -21,7 +19,6 @@ public class BudgetService {
 
   private final BudgetRepository budgetRepository;
   private final UserRepository userRepository;
-  private final CategoryRepository categoryRepository;
 
   public Page<Budget> listBudgets(Pageable pageable, User user) {
     return budgetRepository.findByUser(user, pageable);
@@ -32,9 +29,6 @@ public class BudgetService {
     if (budget.getUuid() == null) {
       budget.setUuid(UUID.randomUUID().toString());
     }
-
-    budget.setCreatedAt(LocalDateTime.now());
-    budget.setUpdatedAt(LocalDateTime.now());
 
     return budgetRepository.save(budget);
   }
@@ -49,7 +43,6 @@ public class BudgetService {
     existing.setPeriod(budget.getPeriod());
     existing.setPeriodType(budget.getPeriodType());
     existing.setCategory(budget.getCategory());
-    existing.setUpdatedAt(LocalDateTime.now());
 
     return budgetRepository.save(existing);
   }
