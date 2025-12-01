@@ -4,6 +4,8 @@ import com.example.expense.entity.Attachment;
 import com.example.expense.entity.Category;
 import com.example.expense.entity.Expense;
 import com.example.expense.entity.User;
+import com.example.expense.enums.NotificationType;
+import com.example.expense.enums.SourceEntity;
 import com.example.expense.exception.ResourceNotFoundException;
 import com.example.expense.repository.AttachmentRepository;
 import com.example.expense.repository.CategoryRepository;
@@ -32,6 +34,7 @@ public class ExpenseService {
   private final FileStorageService fileStorageService;
   private final AttachmentRepository attachmentRepository;
   private final GoalService goalService;
+  private final NotificationService notificationService;
 
   public Page<Expense> listExpenses(String keyword, Pageable pageable) {
     if (keyword == null || keyword.isBlank()) {
@@ -80,7 +83,7 @@ public class ExpenseService {
 
     Expense savedExpense = expenseRepository.save(expense);
 
-    // Handle uploading new attachments.
+    // Handle uploading attachments
     if (files != null) {
       for (MultipartFile file : files) {
         if (!file.isEmpty()) {
@@ -101,7 +104,17 @@ public class ExpenseService {
         }
       }
     }
+
+    // Recalc goals & send notifications
     goalService.recalcCurrentAmountByUser(user.getId());
+
+    // Optional: send info notification for new expense
+    notificationService.createNotification(
+        user,
+        NotificationType.INFO,
+        SourceEntity.EXPENSE,
+        savedExpense.getId(),
+        "New expense added: " + savedExpense.getTitle());
 
     return savedExpense;
   }
@@ -139,7 +152,7 @@ public class ExpenseService {
       existing.setCategory(null);
     }
 
-    // Handle uploading new attachments.
+    // Handle uploading attachments
     if (files != null) {
       for (MultipartFile file : files) {
         if (!file.isEmpty()) {
@@ -160,10 +173,19 @@ public class ExpenseService {
         }
       }
     }
-    existing.setUpdatedAt(LocalDateTime.now());
 
+    existing.setUpdatedAt(LocalDateTime.now());
     Expense savedExpense = expenseRepository.save(existing);
+
     goalService.recalcCurrentAmountByUser(savedExpense.getUser().getId());
+
+    // Optional: send info notification for updated expense
+    notificationService.createNotification(
+        savedExpense.getUser(),
+        NotificationType.INFO,
+        SourceEntity.EXPENSE,
+        savedExpense.getId(),
+        "Expense updated: " + savedExpense.getTitle());
 
     return savedExpense;
   }
@@ -175,6 +197,7 @@ public class ExpenseService {
             .orElseThrow(() -> new ResourceNotFoundException("error.model_not_found"));
     Long userId = expense.getUser().getId();
     goalService.recalcCurrentAmountByUser(userId);
+
     return expenseRepository
         .findById(id)
         .map(
@@ -189,6 +212,14 @@ public class ExpenseService {
               }
 
               expenseRepository.delete(e);
+
+              // Optional: send info notification for deleted expense
+              notificationService.createNotification(
+                  e.getUser(),
+                  NotificationType.INFO,
+                  SourceEntity.EXPENSE,
+                  e.getId(),
+                  "Expense deleted: " + e.getTitle());
 
               return true;
             })

@@ -4,6 +4,8 @@ import com.example.expense.entity.Attachment;
 import com.example.expense.entity.Category;
 import com.example.expense.entity.Income;
 import com.example.expense.entity.User;
+import com.example.expense.enums.NotificationType;
+import com.example.expense.enums.SourceEntity;
 import com.example.expense.exception.ResourceNotFoundException;
 import com.example.expense.repository.AttachmentRepository;
 import com.example.expense.repository.CategoryRepository;
@@ -32,6 +34,7 @@ public class IncomeService {
   private final FileStorageService fileStorageService;
   private final AttachmentRepository attachmentRepository;
   private final GoalService goalService;
+  private final NotificationService notificationService;
 
   public Page<Income> listIncomes(String keyword, Pageable pageable) {
     if (keyword == null || keyword.isBlank()) {
@@ -84,7 +87,7 @@ public class IncomeService {
 
     Income savedIncome = incomeRepository.save(income);
 
-    // Handle uploading new attachments.
+    // Handle uploading attachments
     if (files != null) {
       for (MultipartFile file : files) {
         if (!file.isEmpty()) {
@@ -105,7 +108,16 @@ public class IncomeService {
         }
       }
     }
+
+    // Recalc goals & send notifications
     goalService.recalcCurrentAmountByUser(user.getId());
+
+    notificationService.createNotification(
+        user,
+        NotificationType.INFO,
+        SourceEntity.INCOME,
+        savedIncome.getId(),
+        "New income added: " + savedIncome.getTitle());
 
     return savedIncome;
   }
@@ -144,7 +156,7 @@ public class IncomeService {
       existing.setCategory(null);
     }
 
-    // Handle uploading new attachments.
+    // Handle uploading attachments
     if (files != null) {
       for (MultipartFile file : files) {
         if (!file.isEmpty()) {
@@ -165,10 +177,20 @@ public class IncomeService {
         }
       }
     }
-    existing.setUpdatedAt(LocalDateTime.now());
-    goalService.recalcCurrentAmountByUser(existing.getUser().getId());
 
-    return incomeRepository.save(existing);
+    existing.setUpdatedAt(LocalDateTime.now());
+    Income savedIncome = incomeRepository.save(existing);
+
+    goalService.recalcCurrentAmountByUser(savedIncome.getUser().getId());
+
+    notificationService.createNotification(
+        savedIncome.getUser(),
+        NotificationType.INFO,
+        SourceEntity.INCOME,
+        savedIncome.getId(),
+        "Income updated: " + savedIncome.getTitle());
+
+    return savedIncome;
   }
 
   @Transactional
@@ -194,6 +216,13 @@ public class IncomeService {
               }
 
               incomeRepository.delete(i);
+
+              notificationService.createNotification(
+                  i.getUser(),
+                  NotificationType.INFO,
+                  SourceEntity.INCOME,
+                  i.getId(),
+                  "Income deleted: " + i.getTitle());
 
               return true;
             })
