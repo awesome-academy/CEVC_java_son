@@ -1,5 +1,6 @@
 package com.example.expense.service;
 
+import com.example.expense.dto.ChangePasswordRequest;
 import com.example.expense.dto.UserForm;
 import com.example.expense.entity.Role;
 import com.example.expense.entity.User;
@@ -101,5 +102,24 @@ public class UserService {
 
   public void delete(Long id) {
     userRepository.deleteById(id);
+  }
+
+  public User getByEmail(String email) {
+    return userRepository
+        .findByEmail(email)
+        .orElseThrow(() -> new ResourceNotFoundException("error.model_not_found"));
+  }
+
+  public void changePassword(User user, ChangePasswordRequest req) {
+    if (!passwordEncoder.matches(req.getOldPassword(), user.getPassword())) {
+      throw new IllegalArgumentException("auth.old_password_incorrect");
+    }
+
+    if (!req.getNewPassword().equals(req.getConfirmNewPassword())) {
+      throw new IllegalArgumentException("auth.new_password_and_confirm_not_match");
+    }
+
+    user.setPasswordHash(passwordEncoder.encode(req.getNewPassword()));
+    userRepository.save(user);
   }
 }
