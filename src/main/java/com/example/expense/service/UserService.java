@@ -70,8 +70,6 @@ public class UserService {
     }
 
     user.setIsActive(form.isActive());
-    user.setCreatedAt(LocalDateTime.now());
-    user.setUpdatedAt(LocalDateTime.now());
 
     return userRepository.save(user);
   }

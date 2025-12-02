@@ -82,8 +82,6 @@ public class IncomeService {
     if (income.getIncomeDate() == null) {
       income.setIncomeDate(LocalDate.now());
     }
-    income.setCreatedAt(LocalDateTime.now());
-    income.setUpdatedAt(LocalDateTime.now());
 
     Income savedIncome = incomeRepository.save(income);
 

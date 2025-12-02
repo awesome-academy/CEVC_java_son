@@ -11,7 +11,17 @@ public class PasswordMatchesValidator
   public boolean isValid(RegisterRequest request, ConstraintValidatorContext context) {
     if (request == null) return true;
 
-    return request.getPassword() != null
-        && request.getPassword().equals(request.getConfirmPassword());
+    boolean valid =
+        request.getPassword() != null && request.getPassword().equals(request.getConfirmPassword());
+
+    if (!valid) {
+      context.disableDefaultConstraintViolation();
+      context
+          .buildConstraintViolationWithTemplate("Passwords do not match")
+          .addPropertyNode("confirmPassword")
+          .addConstraintViolation();
+    }
+
+    return valid;
   }
 }

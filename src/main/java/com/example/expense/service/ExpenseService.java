@@ -78,8 +78,6 @@ public class ExpenseService {
     if (expense.getExpenseDate() == null) {
       expense.setExpenseDate(LocalDate.now());
     }
-    expense.setCreatedAt(LocalDateTime.now());
-    expense.setUpdatedAt(LocalDateTime.now());
 
     Expense savedExpense = expenseRepository.save(expense);
 
