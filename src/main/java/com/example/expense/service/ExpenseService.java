@@ -190,40 +190,31 @@ public class ExpenseService {
     return savedExpense;
   }
 
+  @Transactional
   public boolean deleteById(Long id) {
     Expense expense =
         expenseRepository
             .findById(id)
             .orElseThrow(() -> new ResourceNotFoundException("error.model_not_found"));
-    Long userId = expense.getUser().getId();
-    goalService.recalcCurrentAmountByUser(userId);
 
-    return expenseRepository
-        .findById(id)
-        .map(
-            e -> {
-              List<Attachment> attachments = e.getAttachments();
+    List<Attachment> attachments = expense.getAttachments();
+    if (attachments != null) {
+      for (Attachment attachment : attachments) {
+        fileStorageService.deleteFile(attachment.getFileName());
+        attachmentRepository.delete(attachment);
+      }
+    }
 
-              if (attachments != null) {
-                for (Attachment attachment : attachments) {
-                  fileStorageService.deleteFile(attachment.getFileName());
-                  attachmentRepository.delete(attachment);
-                }
-              }
+    expenseRepository.delete(expense);
+    goalService.recalcCurrentAmountByUser(expense.getUser().getId());
+    notificationService.createNotification(
+        expense.getUser(),
+        NotificationType.INFO,
+        SourceEntity.EXPENSE,
+        null,
+        "Expense deleted: " + expense.getTitle());
 
-              expenseRepository.delete(e);
-
-              // Optional: send info notification for deleted expense
-              notificationService.createNotification(
-                  e.getUser(),
-                  NotificationType.INFO,
-                  SourceEntity.EXPENSE,
-                  e.getId(),
-                  "Expense deleted: " + e.getTitle());
-
-              return true;
-            })
-        .orElse(false);
+    return true;
   }
 
   public List<Expense> findAll() {

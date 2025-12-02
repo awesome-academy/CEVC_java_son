@@ -199,34 +199,27 @@ public class IncomeService {
         incomeRepository
             .findById(id)
             .orElseThrow(() -> new ResourceNotFoundException("error.model_not_found"));
-    Long userId = income.getUser().getId();
-    goalService.recalcCurrentAmountByUser(userId);
 
-    return incomeRepository
-        .findById(id)
-        .map(
-            i -> {
-              List<Attachment> attachments = i.getAttachments();
+    List<Attachment> attachments = income.getAttachments();
+    if (attachments != null) {
+      for (Attachment attachment : attachments) {
+        fileStorageService.deleteFile(attachment.getFileName());
+        attachmentRepository.delete(attachment);
+      }
+    }
 
-              if (attachments != null) {
-                for (Attachment attachment : attachments) {
-                  fileStorageService.deleteFile(attachment.getFileName());
-                  attachmentRepository.delete(attachment);
-                }
-              }
+    incomeRepository.delete(income);
 
-              incomeRepository.delete(i);
+    goalService.recalcCurrentAmountByUser(income.getUser().getId());
 
-              notificationService.createNotification(
-                  i.getUser(),
-                  NotificationType.INFO,
-                  SourceEntity.INCOME,
-                  i.getId(),
-                  "Income deleted: " + i.getTitle());
+    notificationService.createNotification(
+        income.getUser(),
+        NotificationType.INFO,
+        SourceEntity.INCOME,
+        null,
+        "Income deleted: " + income.getTitle());
 
-              return true;
-            })
-        .orElse(false);
+    return true;
   }
 
   public List<Income> findAll() {

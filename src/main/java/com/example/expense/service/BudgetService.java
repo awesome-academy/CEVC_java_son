@@ -49,7 +49,7 @@ public class BudgetService {
     Budget existing =
         budgetRepository
             .findById(budget.getId())
-            .orElseThrow(() -> new ResourceNotFoundException("Budget not found"));
+            .orElseThrow(() -> new ResourceNotFoundException("error.model_not_found"));
 
     existing.setAmountLimit(budget.getAmountLimit());
     existing.setPeriod(budget.getPeriod());
@@ -72,15 +72,15 @@ public class BudgetService {
     Budget budget =
         budgetRepository
             .findById(id)
-            .orElseThrow(() -> new ResourceNotFoundException("Budget not found"));
+            .orElseThrow(() -> new ResourceNotFoundException("error.model_not_found"));
     budgetRepository.delete(budget);
 
     notificationService.createNotification(
         budget.getUser(),
         NotificationType.INFO,
         SourceEntity.BUDGET,
-        budget.getId(),
-        "Budget deleted with limit: " + budget.getAmountLimit());
+        null,
+        "Budget deleted (limit: " + budget.getAmountLimit() + ")");
   }
 
   public Optional<Budget> findById(Long id) {

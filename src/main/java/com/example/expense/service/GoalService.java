@@ -9,6 +9,7 @@ import com.example.expense.repository.GoalRepository;
 import com.example.expense.repository.IncomeRepository;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -88,51 +89,50 @@ public class GoalService {
         existing.getUser(),
         NotificationType.INFO,
         SourceEntity.GOAL,
-        existing.getId(),
+        null,
         "Goal deleted: " + existing.getName());
   }
 
   @Transactional
-  public Goal recalcCurrentAmountByUser(Long userId) {
-    List<Goal> goals = goalRepository.findByUserId(userId);
-    Goal lastUpdatedGoal = null;
-    for (Goal goal : goals) {
-      lastUpdatedGoal = recalcCurrentAmount(goal);
-    }
-    return lastUpdatedGoal;
-  }
-
-  @Transactional
   public Goal recalcCurrentAmount(Goal goal) {
-
-    BigDecimal current = BigDecimal.ZERO;
-
     LocalDate now = LocalDate.now();
     LocalDate start = now.withDayOfMonth(1);
     LocalDate end = now.withDayOfMonth(now.lengthOfMonth());
 
-    switch (goal.getGoalType()) {
-      case SAVING -> {
-        current =
-            incomeRepository
-                .sumByUserAndDateBetween(goal.getUser().getId(), start, end)
-                .orElse(BigDecimal.ZERO);
-      }
-      case SPENDING, EXPENSE_LIMIT -> {
-        current =
-            expenseRepository
-                .sumByUserAndDateBetween(goal.getUser().getId(), start, end)
-                .orElse(BigDecimal.ZERO);
-      }
-    }
+    BigDecimal current =
+        switch (goal.getGoalType()) {
+          case SAVING ->
+              incomeRepository
+                  .sumByUserAndDateBetween(goal.getUser().getId(), start, end)
+                  .orElse(BigDecimal.ZERO);
+          case SPENDING, EXPENSE_LIMIT ->
+              expenseRepository
+                  .sumByUserAndDateBetween(goal.getUser().getId(), start, end)
+                  .orElse(BigDecimal.ZERO);
+        };
 
+    return saveGoalAndNotify(goal, current);
+  }
+
+  // Overload để dùng khi đã có tổng incomes/expenses
+  private Goal recalcCurrentAmount(Goal goal, BigDecimal incomeSum, BigDecimal expenseSum) {
+    BigDecimal current =
+        switch (goal.getGoalType()) {
+          case SAVING -> incomeSum;
+          case SPENDING, EXPENSE_LIMIT -> expenseSum;
+        };
+
+    return saveGoalAndNotify(goal, current);
+  }
+
+  // Helper chung để set current, update achieved, save, notify
+  private Goal saveGoalAndNotify(Goal goal, BigDecimal current) {
     boolean previouslyAchieved = goal.getAchieved();
     goal.setCurrentAmount(current);
     goal.setAchieved(current.compareTo(goal.getTargetAmount()) >= 0);
 
     Goal savedGoal = goalRepository.save(goal);
 
-    // Nếu vừa đạt mục tiêu, gửi notification
     if (!previouslyAchieved && goal.getAchieved()) {
       notificationService.createNotification(
           savedGoal.getUser(),
@@ -143,5 +143,26 @@ public class GoalService {
     }
 
     return savedGoal;
+  }
+
+  @Transactional
+  public List<Goal> recalcCurrentAmountByUser(Long userId) {
+    List<Goal> goals = goalRepository.findByUserId(userId);
+    if (goals.isEmpty()) return List.of();
+
+    LocalDate now = LocalDate.now();
+    LocalDate start = now.withDayOfMonth(1);
+    LocalDate end = now.withDayOfMonth(now.lengthOfMonth());
+
+    BigDecimal incomeSum =
+        incomeRepository.sumByUserAndDateBetween(userId, start, end).orElse(BigDecimal.ZERO);
+    BigDecimal expenseSum =
+        expenseRepository.sumByUserAndDateBetween(userId, start, end).orElse(BigDecimal.ZERO);
+
+    List<Goal> updatedGoals = new ArrayList<>();
+    for (Goal goal : goals) {
+      updatedGoals.add(recalcCurrentAmount(goal, incomeSum, expenseSum));
+    }
+    return updatedGoals;
   }
 }

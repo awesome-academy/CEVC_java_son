@@ -24,6 +24,10 @@ public class NotificationService {
 
   public Notification createNotification(
       User user, NotificationType type, SourceEntity source, Long sourceId, String message) {
+
+    if (message == null || message.trim().isEmpty()) {
+      throw new IllegalArgumentException("notification_message_empty");
+    }
     Notification notification =
         Notification.builder()
             .uuid(UUID.randomUUID().toString())
@@ -37,10 +41,12 @@ public class NotificationService {
     return notificationRepository.save(notification);
   }
 
+  @Transactional(readOnly = true)
   public Page<Notification> findByUser(User user, Pageable pageable) {
     return notificationRepository.findByUser(user, pageable);
   }
 
+  @Transactional(readOnly = true)
   public List<Notification> findUnreadByUser(User user) {
     return notificationRepository.findByUserAndIsReadFalse(user);
   }
@@ -49,7 +55,7 @@ public class NotificationService {
     Notification notification =
         notificationRepository
             .findById(id)
-            .orElseThrow(() -> new ResourceNotFoundException("Notification not found"));
+            .orElseThrow(() -> new ResourceNotFoundException("error_model.not_found"));
     if (!notification.getUser().getId().equals(user.getId())) {
       throw new AccessDeniedException("Not allowed to mark this notification");
     }
@@ -61,7 +67,7 @@ public class NotificationService {
     Notification notification =
         notificationRepository
             .findById(id)
-            .orElseThrow(() -> new ResourceNotFoundException("Notification not found"));
+            .orElseThrow(() -> new ResourceNotFoundException("error_model.not_found"));
     if (!notification.getUser().getId().equals(user.getId())) {
       throw new AccessDeniedException("Not allowed to delete this notification");
     }

@@ -34,5 +34,8 @@ public interface ExpenseRepository extends JpaRepository<Expense, Long> {
       AND e.expenseDate BETWEEN :start AND :end
 """)
   BigDecimal sumByUserIdAndCategoryIdAndDateRange(
-      Long userId, Long categoryId, LocalDate start, LocalDate end);
+      @Param("userId") Long userId,
+      @Param("categoryId") Long categoryId,
+      @Param("start") LocalDate start,
+      @Param("end") LocalDate end);
 }

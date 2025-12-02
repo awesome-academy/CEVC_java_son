@@ -11,4 +11,15 @@ public class BudgetCalcResult {
   private Budget budget;
   private BigDecimal currentAmount;
   private boolean exceeded;
+
+  @Override
+  public String toString() {
+    return "BudgetCalcResult{budget="
+        + budget
+        + ", currentAmount="
+        + currentAmount
+        + ", exceeded="
+        + exceeded
+        + "}";
+  }
 }

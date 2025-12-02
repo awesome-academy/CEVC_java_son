@@ -10,7 +10,6 @@ import com.example.expense.service.GoalService;
 import com.example.expense.service.UserService;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -63,7 +62,7 @@ public class GoalController {
   public GoalResponse create(@RequestBody @Valid GoalRequest request, Authentication auth) {
     User user = userService.getByEmail(auth.getName());
 
-    Goal goal = mapToEntity(request, user, null, UUID.randomUUID().toString());
+    Goal goal = mapToEntity(request, user, null, null);
 
     Goal saved = goalService.create(goal);
 
@@ -76,7 +75,9 @@ public class GoalController {
     User user = userService.getByEmail(auth.getName());
 
     Goal existing =
-        goalService.findById(id).orElseThrow(() -> new ResourceNotFoundException("goal_not_found"));
+        goalService
+            .findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("error.model_not_found"));
 
     if (!existing.getUser().getId().equals(user.getId())) {
       throw new AccessDeniedException("not_allowed");
@@ -96,7 +97,9 @@ public class GoalController {
     User user = userService.getByEmail(auth.getName());
 
     Goal existing =
-        goalService.findById(id).orElseThrow(() -> new ResourceNotFoundException("goal_not_found"));
+        goalService
+            .findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("error.model_not_found"));
 
     if (!existing.getUser().getId().equals(user.getId())) {
       throw new AccessDeniedException("not_allowed");
