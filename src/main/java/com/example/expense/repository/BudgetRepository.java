@@ -4,6 +4,7 @@ import com.example.expense.entity.Budget;
 import com.example.expense.entity.User;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -35,4 +36,6 @@ public interface BudgetRepository extends JpaRepository<Budget, Long> {
     """)
   Optional<BigDecimal> sumByPeriodBetween(
       @Param("start") LocalDate start, @Param("end") LocalDate end);
+
+  List<Budget> findByUserId(Long userId);
 }

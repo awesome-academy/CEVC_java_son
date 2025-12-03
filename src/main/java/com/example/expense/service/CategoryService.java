@@ -41,8 +41,6 @@ public class CategoryService {
     category.setUuid(UUID.randomUUID().toString());
     category.setCreatedBy(user);
     category.setUpdatedBy(user);
-    category.setCreatedAt(LocalDateTime.now());
-    category.setUpdatedAt(LocalDateTime.now());
     return categoryRepository.save(category);
   }
 

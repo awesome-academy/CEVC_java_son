@@ -4,6 +4,8 @@ import com.example.expense.entity.Attachment;
 import com.example.expense.entity.Category;
 import com.example.expense.entity.Income;
 import com.example.expense.entity.User;
+import com.example.expense.enums.NotificationType;
+import com.example.expense.enums.SourceEntity;
 import com.example.expense.exception.ResourceNotFoundException;
 import com.example.expense.repository.AttachmentRepository;
 import com.example.expense.repository.CategoryRepository;
@@ -31,6 +33,8 @@ public class IncomeService {
   private final CategoryRepository categoryRepository;
   private final FileStorageService fileStorageService;
   private final AttachmentRepository attachmentRepository;
+  private final GoalService goalService;
+  private final NotificationService notificationService;
 
   public Page<Income> listIncomes(String keyword, Pageable pageable) {
     if (keyword == null || keyword.isBlank()) {
@@ -78,12 +82,10 @@ public class IncomeService {
     if (income.getIncomeDate() == null) {
       income.setIncomeDate(LocalDate.now());
     }
-    income.setCreatedAt(LocalDateTime.now());
-    income.setUpdatedAt(LocalDateTime.now());
 
     Income savedIncome = incomeRepository.save(income);
 
-    // Handle uploading new attachments.
+    // Handle uploading attachments
     if (files != null) {
       for (MultipartFile file : files) {
         if (!file.isEmpty()) {
@@ -104,6 +106,16 @@ public class IncomeService {
         }
       }
     }
+
+    // Recalc goals & send notifications
+    goalService.recalcCurrentAmountByUser(user.getId());
+
+    notificationService.createNotification(
+        user,
+        NotificationType.INFO,
+        SourceEntity.INCOME,
+        savedIncome.getId(),
+        "New income added: " + savedIncome.getTitle());
 
     return savedIncome;
   }
@@ -142,7 +154,7 @@ public class IncomeService {
       existing.setCategory(null);
     }
 
-    // Handle uploading new attachments.
+    // Handle uploading attachments
     if (files != null) {
       for (MultipartFile file : files) {
         if (!file.isEmpty()) {
@@ -163,31 +175,49 @@ public class IncomeService {
         }
       }
     }
-    existing.setUpdatedAt(LocalDateTime.now());
 
-    return incomeRepository.save(existing);
+    existing.setUpdatedAt(LocalDateTime.now());
+    Income savedIncome = incomeRepository.save(existing);
+
+    goalService.recalcCurrentAmountByUser(savedIncome.getUser().getId());
+
+    notificationService.createNotification(
+        savedIncome.getUser(),
+        NotificationType.INFO,
+        SourceEntity.INCOME,
+        savedIncome.getId(),
+        "Income updated: " + savedIncome.getTitle());
+
+    return savedIncome;
   }
 
   @Transactional
   public boolean deleteById(Long id) {
-    return incomeRepository
-        .findById(id)
-        .map(
-            income -> {
-              List<Attachment> attachments = income.getAttachments();
+    Income income =
+        incomeRepository
+            .findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("error.model_not_found"));
 
-              if (attachments != null) {
-                for (Attachment attachment : attachments) {
-                  fileStorageService.deleteFile(attachment.getFileName());
-                  attachmentRepository.delete(attachment);
-                }
-              }
+    List<Attachment> attachments = income.getAttachments();
+    if (attachments != null) {
+      for (Attachment attachment : attachments) {
+        fileStorageService.deleteFile(attachment.getFileName());
+        attachmentRepository.delete(attachment);
+      }
+    }
 
-              incomeRepository.delete(income);
+    incomeRepository.delete(income);
 
-              return true;
-            })
-        .orElse(false);
+    goalService.recalcCurrentAmountByUser(income.getUser().getId());
+
+    notificationService.createNotification(
+        income.getUser(),
+        NotificationType.INFO,
+        SourceEntity.INCOME,
+        null,
+        "Income deleted: " + income.getTitle());
+
+    return true;
   }
 
   public List<Income> findAll() {

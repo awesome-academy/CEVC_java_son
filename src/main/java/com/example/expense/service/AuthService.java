@@ -10,7 +10,6 @@ import com.example.expense.exception.AuthenticationFailedException;
 import com.example.expense.exception.ResourceNotFoundException;
 import com.example.expense.repository.RoleRepository;
 import com.example.expense.repository.UserRepository;
-import java.time.LocalDateTime;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -51,8 +50,6 @@ public class AuthService {
     user.setPasswordHash(passwordEncoder.encode(request.getPassword()));
 
     user.setIsActive(true);
-    user.setCreatedAt(LocalDateTime.now());
-    user.setUpdatedAt(LocalDateTime.now());
     Role defaultRole =
         roleRepository
             .findByName(RoleType.USER)

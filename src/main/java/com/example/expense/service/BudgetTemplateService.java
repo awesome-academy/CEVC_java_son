@@ -50,8 +50,6 @@ public class BudgetTemplateService {
     if (template.getUuid() == null || template.getUuid().isEmpty()) {
       template.setUuid(UUID.randomUUID().toString());
     }
-    template.setCreatedAt(LocalDateTime.now());
-    template.setUpdatedAt(LocalDateTime.now());
 
     return budgetTemplateRepository.save(template);
   }

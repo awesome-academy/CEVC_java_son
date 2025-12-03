@@ -17,5 +17,5 @@ public class BudgetRequest {
 
   @NotNull private PeriodType periodType;
 
-  private Long categoryId;
+  @NotNull private Long categoryId;
 }
